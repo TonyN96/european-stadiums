@@ -42,7 +42,7 @@ async function init() {
 
     server.bind({
         users: {},
-        donations: [],
+        stadiums: [],
     });
 
     server.route(require('./routes'));

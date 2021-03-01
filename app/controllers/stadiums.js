@@ -1,7 +1,12 @@
-const stadiums = {
+"use strict";
+
+const Stadiums = {
     index: {
         handler: function (request, h) {
-            return h.view('home', { title: 'European Stadiums' });
+            return h.view('home', {
+                title: 'European Stadiums',
+                stadiums: this.stadiums,
+            });
         },
     },
     addStadiumView: {
@@ -15,9 +20,9 @@ const stadiums = {
             var userEmail = request.auth.credentials.id;
             data.user = this.users[userEmail];
             this.stadiums.push(data);
-            return h.redirect("/index");
+            return h.redirect("/home");
         },
     },
 };
 
-module.exports = stadiums;
+module.exports = Stadiums;
