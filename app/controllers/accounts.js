@@ -2,6 +2,7 @@
 
 const User = require('../models/user');
 const Boom = require("@hapi/boom");
+const Joi = require('@hapi/joi');
 
 const Accounts = {
     index: {
@@ -19,6 +20,26 @@ const Accounts = {
     },
 
     signup: {
+        validate: {
+            payload: {
+                firstName: Joi.string().required(),
+                lastName: Joi.string().required(),
+                email: Joi.string().email().required(),
+                password: Joi.string().required(),
+            },
+            options: {
+                abortEarly: false,
+            },
+            failAction: function (request, h, error) {
+                return h
+                    .view("signup", {
+                        title: "Sign up error",
+                        errors: error.details,
+                    })
+                    .takeover()
+                    .code(400);
+            },
+        },
         auth: false,
         handler: async function (request, h) {
             try {
@@ -90,18 +111,42 @@ const Accounts = {
     },
 
     updateSettings: {
+        validate: {
+            payload: {
+                firstName: Joi.string().required(),
+                lastName: Joi.string().required(),
+                email: Joi.string().email().required(),
+                password: Joi.string().required(),
+            },
+            options: {
+                abortEarly: false,
+            },
+            failAction: function (request, h, error) {
+                return h
+                    .view("settings", {
+                        title: "Sign up error",
+                        errors: error.details,
+                    })
+                    .takeover()
+                    .code(400);
+            },
+        },
         handler: async function (request, h) {
-            const userEdit = request.payload;
-            const id = request.auth.credentials.id;
-            const user = await User.findById(id);
-            user.firstName = userEdit.firstName;
-            user.lastName = userEdit.lastName;
-            user.email = userEdit.email;
-            user.password = userEdit.password;
-            await user.save();
-            return h.redirect("/settings");
-        }
-    }
+            try {
+                const userEdit = request.payload;
+                const id = request.auth.credentials.id;
+                const user = await User.findById(id);
+                user.firstName = userEdit.firstName;
+                user.lastName = userEdit.lastName;
+                user.email = userEdit.email;
+                user.password = userEdit.password;
+                await user.save();
+                return h.redirect("/settings");
+            } catch (err) {
+                return h.view("main", { errors: [{ message: err.message }] });
+            }
+        },
+    },
 };
 
 module.exports = Accounts;

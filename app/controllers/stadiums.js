@@ -19,16 +19,20 @@ const Stadiums = {
     },
     addStadium: {
         handler: async function (request, h) {
-            const data = request.payload;
-            const newStadium = new Stadium({
-                name: data.name,
-                location: data.location,
-                capacity: data.capacity,
-                built: data.built,
-                teams: data.teams
-            });
-            await newStadium.save();
-            return h.redirect("/home");
+            try {
+                const data = request.payload;
+                const newStadium = new Stadium({
+                    name: data.name,
+                    location: data.location,
+                    capacity: data.capacity,
+                    built: data.built,
+                    teams: data.teams
+                });
+                await newStadium.save();
+                return h.redirect("/home");
+            } catch (err) {
+                return h.view("main", { errors: [{ message: err.message }] });
+            }
         },
     },
 };
