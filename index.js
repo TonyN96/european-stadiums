@@ -7,13 +7,14 @@ const Handlebars = require('handlebars');
 const Cookie = require("@hapi/cookie");
 const env = require('dotenv');
 
-env.config();
-
 const server = Hapi.server({
     port: 3000,
     host: 'localhost',
 });
 
+require('./app/models/db');
+
+env.config();
 
 async function init() {
     await server.register(Inert);
@@ -42,11 +43,6 @@ async function init() {
     });
 
     server.auth.default('session');
-
-    server.bind({
-        users: {},
-        stadiums: [],
-    });
 
     server.route(require('./routes'));
     await server.start();

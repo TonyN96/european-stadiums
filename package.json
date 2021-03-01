@@ -17,6 +17,7 @@
     "@hapi/vision": "^6.0.1",
     "dotenv": "^8.2.0",
     "handlebars": "^4.7.7",
+    "mongoose": "^5.11.18",
     "nodemon": "^2.0.7"
   },
   "devDependencies": {
