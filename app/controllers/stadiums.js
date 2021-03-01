@@ -1,11 +1,14 @@
 "use strict";
 
+const Stadium = require("../models/stadium");
+
 const Stadiums = {
     index: {
-        handler: function (request, h) {
+        handler: async function (request, h) {
+            const stadiums = await Stadium.find().lean();
             return h.view('home', {
                 title: 'European Stadiums',
-                stadiums: this.stadiums,
+                stadiums: stadiums,
             });
         },
     },
@@ -15,11 +18,16 @@ const Stadiums = {
         },
     },
     addStadium: {
-        handler: function (request, h) {
+        handler: async function (request, h) {
             const data = request.payload;
-            var userEmail = request.auth.credentials.id;
-            data.user = this.users[userEmail];
-            this.stadiums.push(data);
+            const newStadium = new Stadium({
+                name: data.name,
+                location: data.location,
+                capacity: data.capacity,
+                built: data.built,
+                teams: data.teams
+            });
+            await newStadium.save();
             return h.redirect("/home");
         },
     },
