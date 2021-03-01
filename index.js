@@ -15,7 +15,7 @@ const server = Hapi.server({
 
 require('./app/models/db');
 
-const result = dotenv.config();
+const result = env.config();
 if (result.error) {
   console.log(result.error.message);
   process.exit(1);
