@@ -13,7 +13,7 @@ const Accounts = {
     },
     signup: {
         handler: function (request, h) {
-            return h.redirect('/stadiums');
+            return h.redirect('/home');
         }
     },
     showLogin: {
@@ -23,7 +23,7 @@ const Accounts = {
     },
     login: {
         handler: function (request, h) {
-            return h.redirect('/stadiums');
+            return h.redirect('/home');
         }
     },
     logout: {
