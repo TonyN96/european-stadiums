@@ -11,7 +11,8 @@ module.exports = [
     { method: "POST", path: "/login", config: accounts.login },
 
     { method: 'GET', path: '/home', config: stadiums.index },
-    { method: 'GET', path: '/add-stadium', config: stadiums.addStadium },
+    { method: 'GET', path: '/add-stadium', config: stadiums.addStadiumView },
+    { method: 'POST', path: '/add-stadium', config: stadiums.addStadium },
 
     {
         method: 'GET',
@@ -21,5 +22,6 @@ module.exports = [
                 path: './public',
             },
         },
+        options: { auth: false }
     },
 ];
