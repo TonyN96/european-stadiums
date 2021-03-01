@@ -1,0 +1,25 @@
+<div class="uk-margin uk-width-expand uk-margin-auto">
+  <table class="uk-table">
+    <caption>
+      Stadiums
+    </caption>
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Capacity</th>
+      <th>Built</th>
+      <th>Team(s)</th>
+    </thead>
+    <tbody class="uk-text-left">
+      {{#each stadiums}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{location}}</td>
+        <td>{{capacity}}</td>
+        <td>{{built}}</td>
+        <td>{{teams}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
