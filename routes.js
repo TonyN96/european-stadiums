@@ -1,5 +1,5 @@
 const Accounts = require("./app/controllers/accounts");
-const stadiums = require('./app/controllers/stadiums');
+const Stadiums = require('./app/controllers/stadiums');
 
 module.exports = [
     { method: "GET", path: "/", config: Accounts.index },
@@ -12,9 +12,10 @@ module.exports = [
     { method: "POST", path: "/signup", config: Accounts.signup },
     { method: "POST", path: "/login", config: Accounts.login },
 
-    { method: 'GET', path: '/home', config: stadiums.index },
-    { method: 'GET', path: '/add-stadium', config: stadiums.addStadiumView },
-    { method: 'POST', path: '/add-stadium', config: stadiums.addStadium },
+    { method: 'GET', path: '/home', config: Stadiums.index },
+    { method: 'GET', path: '/add-stadium', config: Stadiums.addStadiumView },
+    { method: 'POST', path: '/add-stadium', config: Stadiums.addStadium },
+    { method: 'GET', path: '/delete-stadium/{id}', config: Stadiums.deleteStadium },
 
     {
         method: 'GET',

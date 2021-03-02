@@ -35,6 +35,18 @@ const Stadiums = {
             }
         },
     },
+    deleteStadium: {
+        handler: async function (request, h) {
+            try {
+                const stadiumId = request.params.id;
+                const stadium = Stadium.findById(stadiumId);
+                await Stadium.deleteOne(stadium);
+                return h.redirect("/home");
+            } catch (err) {
+                return h.view("home", { errors: [{ message: err.message }] });
+            }
+        }
+    },
 };
 
 module.exports = Stadiums;
