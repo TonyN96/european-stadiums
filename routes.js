@@ -16,6 +16,8 @@ module.exports = [
     { method: 'GET', path: '/add-stadium', config: Stadiums.addStadiumView },
     { method: 'POST', path: '/add-stadium', config: Stadiums.addStadium },
     { method: 'GET', path: '/delete-stadium/{id}', config: Stadiums.deleteStadium },
+    { method: 'GET', path: '/edit-stadium/{id}', config: Stadiums.editStadiumView },
+    { method: 'POST', path: '/edit-stadium/{id}', config: Stadiums.editStadium },
 
     {
         method: 'GET',

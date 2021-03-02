@@ -47,6 +47,33 @@ const Stadiums = {
             }
         }
     },
+    editStadiumView: {
+        handler: function (request, h) {
+            const stadiumId = request.params.id;
+            return h.view('edit-stadium', { title: 'Edit Stadium', stadiumId: stadiumId });
+        },
+    },
+    editStadium: {
+        handler: async function (request, h) {
+            try {
+                const stadiumId = request.params.id;
+                const data = request.payload;
+                await Stadium.updateOne(
+                    { _id: stadiumId },
+                    {
+                        name: data.name,
+                        location: data.location,
+                        capacity: data.capacity,
+                        built: data.built,
+                        teams: data.teams
+                    }
+                );
+                return h.redirect("/home");
+            } catch (err) {
+                return h.view("home", { errors: [{ message: err.message }] });
+            }
+        },
+    }
 };
 
 module.exports = Stadiums;
