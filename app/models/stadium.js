@@ -8,7 +8,8 @@ const stadiumSchema = new Schema({
   location: String,
   capacity: Number,
   built: Number,
-  teams: Array
+  teams: Array,
+  addedBy: String
 });
 
 module.exports = Mongoose.model("Stadium", stadiumSchema);
