@@ -13,7 +13,32 @@
     </div>
 
   </div>
-  <table class="uk-table">
+
+  <div class="uk-child-width-expand uk-grid-divider uk-margin" uk-grid>
+    {{#each stadiums}}
+      <div>
+        <div class="uk-text-lead">{{name}}</div>
+
+        <div class="uk-width-1 uk-height-small uk-box-shadow-medium uk-margin"></div>
+
+        <div class="uk-width-1">
+          <div class="uk-text-left uk-text-emphasis">{{location}}</div>
+          <div class="uk-text-left">Capacity: {{capacity}}</div>
+          <div class="uk-text-left">Built: {{built}}</div>
+          <div class="uk-text-left">Club: {{teams}}</div>
+        </div>
+        <div class="uk-margin uk-flex uk-flex-center uk-flex-middle uk-grid-small">
+          <div class="uk-text-left uk-width-2-3 uk-text-meta">Added by: {{addedBy}}</div>
+          <div class="uk-width-expand uk-text-right">
+            <a href="/edit-stadium/{{_id}}"><i class="fas fa-edit uk-text-large" title="Edit" uk-tooltip></i></a>
+            <a href="/delete-stadium/{{_id}}"><i class="fas fa-times-circle uk-text-large uk-text-danger" title="Delete" uk-tooltip></i></a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+  {{!-- <table class="uk-table">
     <thead>
       <th>Name</th>
       <th>Location</th>
@@ -39,5 +64,5 @@
       </tr>
       {{/each}}
     </tbody>
-  </table>
+  </table> --}}
 </div>
