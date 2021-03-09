@@ -1,0 +1,47 @@
+{
+    "users": {
+      "_model": "User",
+      "john": {
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "john@doe.com",
+        "password": "secret"
+      },
+      "jane": {
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "email": "jane@doe.com",
+        "password": "secret"
+      }
+    },
+    "stadiums": {
+      "_model": "Stadium",
+      "camp_nou": {
+        "name": "Nou Camp",
+        "location": "Barcelona, Spain",
+        "capacity": 99354,
+        "built": 1957,
+        "teams": "FC Barcelona",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312835/camp_nou_xpdyvy.jpg"
+      },
+      "allianz_arena": {
+        "name": "Allianz Arena",
+        "location": "Munich, Germany",
+        "capacity": 75024,
+        "built": 2005,
+        "teams": "Bayern Munich",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312893/allianz_arena_ym9xol.jpg"
+      },
+      "": {
+        "name": "Stamford Bridge",
+        "location": "London, United Kingdom",
+        "capacity": 41387,
+        "built": 1876,
+        "teams": "Chelsea FC",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312892/stamford_bridge_kdaid1.jpg"
+      }
+    }
+  }

@@ -1,5 +1,5 @@
 <div class="uk-margin uk-width-expand uk-margin-auto">
-    <form class="uk-form-stacked uk-text-left" action="{{action}}{{#if stadiumId}}{{stadiumId}}{{/if}}" method="POST">
+    <form class="uk-form-stacked uk-text-left" action="{{action}}{{#if stadiumId}}{{stadiumId}}{{/if}}" method="POST" enctype="multipart/form-data">
         <div class="uk-grid uk-grid-stack">
             <div class="uk-width-expand">
                 <div class="uk-margin">
@@ -34,6 +34,12 @@
                     <div class="uk-form-controls">
                         <input class="uk-input" id="form-stacked-text" type="name" name="teams"
                             placeholder="e.g. FC Barcelona" />
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-form-label">Image:</div>
+                    <div class="uk-form-controls">
+                       <input type="file" class="uk-input" name="imagefile" accept="image/png, image/jpeg">
                     </div>
                 </div>
                 <div class="uk-width-1">

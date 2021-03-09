@@ -2,15 +2,20 @@
 
 const Stadium = require("../models/stadium");
 const User = require("../models/user");
+const ImageStore = require('../utils/image-store');
 
 const Stadiums = {
     index: {
         handler: async function (request, h) {
-            const stadiums = await Stadium.find().lean();
-            return h.view('home', {
-                title: 'European Stadiums',
-                stadiums: stadiums,
-            });
+            try {
+                const stadiums = await Stadium.find().populate("addedBy").lean();
+                return h.view('home', {
+                    title: 'European Stadiums',
+                    stadiums: stadiums,
+                });
+            } catch (err) {
+               return h.view('home', { errors: [{ message: err }] })
+            }
         },
     },
     addStadiumView: {
@@ -23,21 +28,30 @@ const Stadiums = {
             try {
                 const id = request.auth.credentials.id;
                 const user = await User.findById(id);
-                const data = request.payload; 
+                const data = request.payload;
+                const result = await ImageStore.uploadImage(data.imagefile);
+                const imageUrl = result.url;
                 const newStadium = new Stadium({
                     name: data.name,
                     location: data.location,
                     capacity: data.capacity,
                     built: data.built,
                     teams: data.teams,
-                    addedBy: user.firstName + " " + user.lastName,
+                    addedBy: user._id,
+                    imageUrl: imageUrl,
                 });
                 await newStadium.save();
                 return h.redirect("/home");
             } catch (err) {
-                return h.view("main", { errors: [{ message: err.message }] });
+                return h.view("add-stadium", { errors: [{ message: err.message }] });
             }
         },
+        payload: {
+            multipart: true,
+            output: 'data',
+            maxBytes: 209715200,
+            parse: true
+        }
     },
     deleteStadium: {
         handler: async function (request, h) {
