@@ -1,0 +1,54 @@
+<div class="uk-margin uk-width-expand uk-margin-auto">
+    <form class="uk-form-stacked uk-text-left" action="add-stadium" method="POST" enctype="multipart/form-data">
+        <div class="uk-grid uk-grid-stack">
+            <div class="uk-width-expand">
+                <div class="uk-margin">
+                    <label class="uk-form-label" for="form-stacked-text">Name:</label>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-stacked-text" type="text" name="name"
+                            placeholder="e.g. Nou Camp" />
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-form-label">Location:</div>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-stacked-text" type="text" name="location"
+                            placeholder="e.g. Barcelona, Spain" />
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-form-label">Stadium Capacity:</div>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-stacked-text" type="number" name="capacity"
+                            placeholder="e.g. 99,354" />
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-form-label">Year built:</div>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-stacked-text" type="number" name="built" placeholder="e.g. 1957" />
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-form-label">Club:</div>
+                    <div class="uk-form-controls">
+                        <input class="uk-input" id="form-stacked-text" type="name" name="club"
+                            placeholder="e.g. FC Barcelona" />
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <div class="uk-form-label">Image:</div>
+                    <div class="uk-form-controls">
+                       <input type="file" class="uk-input" name="imagefile" accept="image/png, image/jpeg">
+                    </div>
+                </div>
+                <div class="uk-width-1">
+                    <div class="uk-margin">
+                        <button class="submit uk-button uk-button-secondary uk-button-large uk-width-1-1">Add Stadium</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    {{> error }}
+</div>

@@ -1,5 +1,6 @@
 "use strict";
 
+const { string } = require("@hapi/joi");
 const Stadium = require("../models/stadium");
 const User = require("../models/user");
 const ImageStore = require('../utils/image-store');
@@ -36,7 +37,7 @@ const Stadiums = {
                     location: data.location,
                     capacity: data.capacity,
                     built: data.built,
-                    teams: data.teams,
+                    club: data.club,
                     addedBy: user._id,
                     imageUrl: imageUrl,
                 });
@@ -66,16 +67,21 @@ const Stadiums = {
         }
     },
     editStadiumView: {
-        handler: function (request, h) {
+        handler: async function (request, h) {
             const stadiumId = request.params.id;
-            return h.view('edit-stadium', { title: 'Edit Stadium', stadiumId: stadiumId });
+            const stadium = await Stadium.findById(stadiumId).lean();
+            return h.view('edit-stadium', { stadium: stadium });
         },
     },
     editStadium: {
         handler: async function (request, h) {
             try {
+                const userId = request.auth.credentials.id;
+                const user = await User.findById(userId);
                 const stadiumId = request.params.id;
                 const data = request.payload;
+                const result = await ImageStore.uploadImage(data.imagefile);
+                const imageUrl = result.url;
                 await Stadium.updateOne(
                     { _id: stadiumId },
                     {
@@ -83,7 +89,9 @@ const Stadiums = {
                         location: data.location,
                         capacity: data.capacity,
                         built: data.built,
-                        teams: data.teams
+                        club: data.club,
+                        addedBy: user._id,
+                        imageUrl: imageUrl,
                     }
                 );
                 return h.redirect("/home");
@@ -91,6 +99,12 @@ const Stadiums = {
                 return h.view("home", { errors: [{ message: err.message }] });
             }
         },
+        payload: {
+            multipart: true,
+            output: 'data',
+            maxBytes: 209715200,
+            parse: true
+        }
     }
 };
 

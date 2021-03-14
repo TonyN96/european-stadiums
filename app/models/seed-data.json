@@ -21,7 +21,7 @@
         "location": "Barcelona, Spain",
         "capacity": 99354,
         "built": 1957,
-        "teams": "FC Barcelona",
+        "club": "FC Barcelona",
         "addedBy": "->users.john",
         "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312835/camp_nou_xpdyvy.jpg"
       },
@@ -30,7 +30,7 @@
         "location": "Munich, Germany",
         "capacity": 75024,
         "built": 2005,
-        "teams": "Bayern Munich",
+        "club": "Bayern Munich",
         "addedBy": "->users.jane",
         "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312893/allianz_arena_ym9xol.jpg"
       },
@@ -39,7 +39,7 @@
         "location": "London, United Kingdom",
         "capacity": 41387,
         "built": 1876,
-        "teams": "Chelsea FC",
+        "club": "Chelsea FC",
         "addedBy": "->users.john",
         "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312892/stamford_bridge_kdaid1.jpg"
       }

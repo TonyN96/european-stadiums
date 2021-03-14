@@ -8,7 +8,7 @@ const stadiumSchema = new Schema({
   location: String,
   capacity: Number,
   built: Number,
-  teams: Array,
+  club: String,
   addedBy: {
     type: Schema.Types.ObjectId,
     ref: 'User',

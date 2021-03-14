@@ -1,39 +1,39 @@
 <div class="uk-margin uk-width-expand uk-margin-auto">
-    <form class="uk-form-stacked uk-text-left" action="{{action}}{{#if stadiumId}}{{stadiumId}}{{/if}}" method="POST" enctype="multipart/form-data">
+    <form class="uk-form-stacked uk-text-left" action="{{stadium._id}}" method="POST" enctype="multipart/form-data">
         <div class="uk-grid uk-grid-stack">
             <div class="uk-width-expand">
                 <div class="uk-margin">
                     <label class="uk-form-label" for="form-stacked-text">Name:</label>
                     <div class="uk-form-controls">
                         <input class="uk-input" id="form-stacked-text" type="text" name="name"
-                            placeholder="e.g. Nou Camp" />
+                            value="{{stadium.name}}" />
                     </div>
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">Location:</div>
                     <div class="uk-form-controls">
                         <input class="uk-input" id="form-stacked-text" type="text" name="location"
-                            placeholder="e.g. Barcelona, Spain" />
+                            value="{{stadium.location}}" />
                     </div>
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">Stadium Capacity:</div>
                     <div class="uk-form-controls">
                         <input class="uk-input" id="form-stacked-text" type="number" name="capacity"
-                            placeholder="e.g. 99,354" />
+                            value="{{stadium.capacity}}" />
                     </div>
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">Year built:</div>
                     <div class="uk-form-controls">
-                        <input class="uk-input" id="form-stacked-text" type="number" name="built" placeholder="e.g. 1957" />
+                        <input class="uk-input" id="form-stacked-text" type="number" name="built" value="{{stadium.built}}" />
                     </div>
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">Club:</div>
                     <div class="uk-form-controls">
-                        <input class="uk-input" id="form-stacked-text" type="name" name="teams"
-                            placeholder="e.g. FC Barcelona" />
+                        <input class="uk-input" id="form-stacked-text" type="name" name="club"
+                            value="{{stadium.club}}" />
                     </div>
                 </div>
                 <div class="uk-margin">
@@ -44,7 +44,7 @@
                 </div>
                 <div class="uk-width-1">
                     <div class="uk-margin">
-                        <button class="submit uk-button uk-button-secondary uk-button-large uk-width-1-1">Add Stadium</button>
+                        <button class="submit uk-button uk-button-secondary uk-button-large uk-width-1-1">Update Stadium</button>
                     </div>
                 </div>
             </div>
