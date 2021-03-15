@@ -25,6 +25,28 @@ const Stadiums = {
         },
     },
     addStadium: {
+        validate: {
+            payload: {
+                name: Joi.string().required(),
+                location: Joi.string().required(),
+                capacity: Joi.number().integer().required(),
+                built: Joi.number().integer().min(1850).max(2021).required(),
+                club: Joi.string().required(),
+                imagefile: Joi.any().optional(),
+            },
+            options: {
+                abortEarly: false,
+            },
+            failAction: function (request, h, error) {
+                return h
+                    .view("add-stadium", {
+                        title: "Error adding stadium..",
+                        errors: error.details,
+                    })
+                    .takeover()
+                    .code(400);
+            },
+        },
         handler: async function (request, h) {
             try {
                 const id = request.auth.credentials.id;
@@ -74,6 +96,28 @@ const Stadiums = {
         },
     },
     editStadium: {
+        validate: {
+            payload: {
+                name: Joi.string().required(),
+                location: Joi.string().required(),
+                capacity: Joi.number().integer().required(),
+                built: Joi.number().integer().min(1850).max(2021).required(),
+                club: Joi.string().required(),
+                imagefile: Joi.any().optional(),
+            },
+            options: {
+                abortEarly: false,
+            },
+            failAction: function (request, h, error) {
+                return h
+                    .view("home", {
+                        title: "Error editing stadium..",
+                        errors: error.details,
+                    })
+                    .takeover()
+                    .code(400);
+            },
+        },
         handler: async function (request, h) {
             try {
                 const userId = request.auth.credentials.id;
