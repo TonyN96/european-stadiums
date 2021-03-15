@@ -13,11 +13,11 @@ const Stadiums = {
                 let spainStadiums = [];
                 let germanyStadiums = [];
                 let italyStadiums = [];
-                let ukStadiums = [];
+                let englandStadiums = [];
                 let franceStadiums = [];
                 for (let x = 0; x < stadiums.length; x++) {
-                    if (stadiums[x].country == "United Kingdom") {
-                        ukStadiums.push(stadiums[x]);
+                    if (stadiums[x].country == "England") {
+                        englandStadiums.push(stadiums[x]);
                     } else if (stadiums[x].country == "France") {
                         franceStadiums.push(stadiums[x]);
                     } else if (stadiums[x].country == "Germany") {
@@ -33,7 +33,7 @@ const Stadiums = {
                     spainStadiums: spainStadiums,
                     germanyStadiums: germanyStadiums,
                     italyStadiums: italyStadiums,
-                    ukStadiums: ukStadiums,
+                    englandStadiums: englandStadiums,
                     franceStadiums: franceStadiums
                 });
             } catch (err) {
@@ -50,7 +50,8 @@ const Stadiums = {
         validate: {
             payload: {
                 name: Joi.string().required(),
-                location: Joi.string().required(),
+                country: Joi.string().required(),
+                city: Joi.string().required(),
                 capacity: Joi.number().integer().required(),
                 built: Joi.number().integer().min(1850).max(2021).required(),
                 club: Joi.string().required(),
@@ -78,7 +79,8 @@ const Stadiums = {
                 const imageUrl = result.url;
                 const newStadium = new Stadium({
                     name: data.name,
-                    location: data.location,
+                    country: data.country,
+                    city: data.city,
                     capacity: data.capacity,
                     built: data.built,
                     club: data.club,
@@ -121,7 +123,8 @@ const Stadiums = {
         validate: {
             payload: {
                 name: Joi.string().required(),
-                location: Joi.string().required(),
+                country: Joi.string().required(),
+                city: Joi.string().required(),
                 capacity: Joi.number().integer().required(),
                 built: Joi.number().integer().min(1850).max(2021).required(),
                 club: Joi.string().required(),
@@ -152,7 +155,8 @@ const Stadiums = {
                     { _id: stadiumId },
                     {
                         name: data.name,
-                        location: data.location,
+                        country: data.country,
+                        city: data.city,
                         capacity: data.capacity,
                         built: data.built,
                         club: data.club,
@@ -162,7 +166,9 @@ const Stadiums = {
                 );
                 return h.redirect("/home");
             } catch (err) {
-                return h.view("home", { errors: [{ message: err.message }] });
+                const stadiumId = request.params.id;
+                const stadium = await Stadium.findById(stadiumId).lean();
+                return h.view("edit-stadium", { stadium: stadium, errors: [{ message: err.message }] });
             }
         },
         payload: {

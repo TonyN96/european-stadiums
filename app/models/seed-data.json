@@ -18,7 +18,7 @@
       "_model": "Stadium",
       "old_trafford": {
         "name": "Old Trafford",
-        "country": "United Kingdom",
+        "country": "England",
         "city": "Manchester",
         "capacity": 74140,
         "built": 1909,
@@ -26,19 +26,19 @@
         "addedBy": "->users.john",
         "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615812356/1920px-Manchester_United_Panorama__288051523746_29_it6uuz.jpg"
       },
-      "celtic_park": {
-        "name": "Celtic Park",
-        "country": "United Kingdom",
-        "city": "Glasgow",
-        "capacity": 60411,
+      "st_james_park": {
+        "name": "St James' Park",
+        "country": "England",
+        "city": "Newcastle",
+        "capacity": 52305,
         "built": 1892,
-        "club": "Celtic FC",
+        "club": "Newcastle United FC",
         "addedBy": "->users.jane",
-        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615812624/inpho_01377373-e1532948243487-804x526_yihk06.jpg"
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615816720/11833247-Activity-4_za4ehi.jpg"
       },
       "anfield": {
         "name": "Anfield",
-        "country": "United Kingdom",
+        "country": "England",
         "city": "Liverpool",
         "capacity": 53394,
         "built": 1884,
@@ -48,7 +48,7 @@
       },
       "stamford_bridge": {
         "name": "Stamford Bridge",
-        "country": "United Kingdom",
+        "country": "England",
         "city": "London",
         "capacity": 41387,
         "built": 1876,
