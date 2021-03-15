@@ -10,9 +10,31 @@ const Stadiums = {
         handler: async function (request, h) {
             try {
                 const stadiums = await Stadium.find().populate("addedBy").lean();
+                let spainStadiums = [];
+                let germanyStadiums = [];
+                let italyStadiums = [];
+                let englandStadiums = [];
+                let franceStadiums = [];
+                for (let x = 0; x < stadiums.length; x++) {
+                    if (stadiums[x].country == "England") {
+                        englandStadiums.push(stadiums[x]);
+                    } else if (stadiums[x].country == "France") {
+                        franceStadiums.push(stadiums[x]);
+                    } else if (stadiums[x].country == "Germany") {
+                        germanyStadiums.push(stadiums[x]);
+                    } else if (stadiums[x].country == "Italy") {
+                        italyStadiums.push(stadiums[x]);
+                    } else if (stadiums[x].country == "Spain") {
+                        spainStadiums.push(stadiums[x]);
+                    }
+                }
                 return h.view('home', {
                     title: 'European Stadiums',
-                    stadiums: stadiums,
+                    spainStadiums: spainStadiums,
+                    germanyStadiums: germanyStadiums,
+                    italyStadiums: italyStadiums,
+                    englandStadiums: englandStadiums,
+                    franceStadiums: franceStadiums
                 });
             } catch (err) {
                return h.view('home', { errors: [{ message: err }] })

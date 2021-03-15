@@ -18,7 +18,8 @@
       "_model": "Stadium",
       "camp_nou": {
         "name": "Nou Camp",
-        "location": "Barcelona, Spain",
+        "country": "Spain",
+        "city": "Barcelona",
         "capacity": 99354,
         "built": 1957,
         "club": "FC Barcelona",
@@ -27,7 +28,8 @@
       },
       "allianz_arena": {
         "name": "Allianz Arena",
-        "location": "Munich, Germany",
+        "country": "Germany",
+        "city": "Munich",
         "capacity": 75024,
         "built": 2005,
         "club": "Bayern Munich",
@@ -36,7 +38,8 @@
       },
       "": {
         "name": "Stamford Bridge",
-        "location": "London, United Kingdom",
+        "country": "England",
+        "city": "London",
         "capacity": 41387,
         "built": 1876,
         "club": "Chelsea FC",

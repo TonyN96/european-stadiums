@@ -1,9 +1,52 @@
 {{> main-menu title="European Stadiums" subTitle="Home"}}
 
-
 <div class="uk-container uk-margin">
     <div class="uk-width-expand uk-flex-center uk-flex-middle uk-text-center uk-grid uk-margin-top">
-        {{> list-stadiums}}
+
+        <div class="uk-margin uk-width-expand uk-margin-auto">
+            <div class="uk-margin">
+
+                <div class="uk-flex uk-flex-center uk-flex-middle uk-grid-small" uk-grid>
+                    <div class="uk-width-expand uk-text-right">
+                        <a href="add-stadium">
+                            <button class="uk-button uk-button-secondary">Add Stadium</button>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <h2 class="ui-h2">England</h2>
+
+            {{#each englandStadiums}}
+                {{> list-stadiums}}
+            {{/each}}
+
+            <h2 class="ui-h2">France</h2>
+
+            {{#each franceStadiums}}
+                {{> list-stadiums}}
+            {{/each}}
+
+            <h2 class="ui-h2">Germany</h2>
+
+            {{#each germanyStadiums}}
+                {{> list-stadiums}}
+            {{/each}}
+
+            <h2 class="ui-h2">Italy</h2>
+
+            {{#each italyStadiums}}
+                {{> list-stadiums}}
+            {{/each}}
+
+            <h2 class="ui-h2">Spain</h2>
+
+            {{#each spainStadiums}}
+                {{> list-stadiums}}
+            {{/each}}
+
+        </div>
     </div>
-    {{> error }}
 </div>
+{{> error }}
