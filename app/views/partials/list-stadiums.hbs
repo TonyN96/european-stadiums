@@ -1,10 +1,10 @@
 <div class="uk-width-1-4">
-  <h3 class="uk-title">{{name}}</h3>
+  <h4 class="uk-title uk-text-medium">{{name}}</h4>
   <div
     style="height: 150px; width: 100%; background-image: url('{{imageUrl}}'); background-size: cover; background-position: center;  background-repeat: no-repeat;">
   </div>
-  <div class="uk-text-center uk-margin">{{city}}</div>
-  <div class="uk-margin uk-width-2-3 uk-text-left">
+  <div class="uk-margin uk-width-1-1 uk-text-left uk-text-small">
+    City: {{city}} <br>
     Capacity: {{capacity}} <br>
     Built: {{built}} <br>
     Club: {{club}} <br>
@@ -12,9 +12,9 @@
   <div class="uk-width-expand uk-flex uk-flex-between uk-flex-bottom">
     <div class="uk-text-meta">Added by: {{addedBy.firstName}} {{addedBy.lastName}}</div>
     <div>
-      <a href="/delete-stadium/{{_id}}"><i class="fas fa-times-circle" style="color: red; font-size: 28px;"
+      <a href="/delete-stadium/{{_id}}"><i class="fas fa-times-circle" style="color: rgba(235, 38, 38, 0.829); font-size: 24px;"
           title="Delete" uk-tooltip></i></a>
-      <a href="/edit-stadium/{{_id}}"><i class="fas fa-edit" style="font-size: 28px;" title="Edit" uk-tooltip></i></a>
+      <a href="/edit-stadium/{{_id}}"><i class="fas fa-edit" style="color: rgba(50, 137, 219, 0.829); font-size: 24px;" title="Edit" uk-tooltip></i></a>
     </div>
   </div>
 </div>
