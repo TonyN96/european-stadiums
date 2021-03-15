@@ -16,32 +16,205 @@
     },
     "stadiums": {
       "_model": "Stadium",
+      "old_trafford": {
+        "name": "Old Trafford",
+        "country": "England",
+        "city": "Manchester",
+        "capacity": 74140,
+        "built": 1909,
+        "club": "Manchester United FC",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615812356/1920px-Manchester_United_Panorama__288051523746_29_it6uuz.jpg"
+      },
+      "st_james_park": {
+        "name": "St James' Park",
+        "country": "England",
+        "city": "Newcastle",
+        "capacity": 52305,
+        "built": 1892,
+        "club": "Newcastle United FC",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615816720/11833247-Activity-4_za4ehi.jpg"
+      },
+      "anfield": {
+        "name": "Anfield",
+        "country": "England",
+        "city": "Liverpool",
+        "capacity": 53394,
+        "built": 1884,
+        "club": "Liverpool FC",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615812716/1280px-Panorama_of_Anfield_with_new_main_stand__2829676137824_29_mdooii.jpg"
+      },
+      "stamford_bridge": {
+        "name": "Stamford Bridge",
+        "country": "England",
+        "city": "London",
+        "capacity": 41387,
+        "built": 1876,
+        "club": "Chelsea FC",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312892/stamford_bridge_kdaid1.jpg"
+      },
+      "stade_vélodrome": {
+        "name": "Stade Vélodrome",
+        "country": "France",
+        "city": "Marseille",
+        "capacity": 67394,
+        "built": 1935,
+        "club": "Olympique de Marseille",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615813692/1920px-Stade_V_C3_A9lodrome__2820150405_29_d6xvcm.jpg"
+      },
+      "parc_olympique_lyonnais": {
+        "name": "Parc Olympique Lyonnais",
+        "country": "France",
+        "city": "Lyon",
+        "capacity": 59186,
+        "built": 2012,
+        "club": "Olympique Lyonnais",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615813813/1280px-OL-Angers_Groupama_Stadium_11_vpyjsa.jpg"
+      },
+      "stade_pierre-mauroy": {
+        "name": "Stade Pierre-Mauroy",
+        "country": "France",
+        "city": "Lille",
+        "capacity": 50186,
+        "built": 2012,
+        "club": "LOSC Lille",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615814123/B9712514611Z.1_20170704164829_000_2BGT89CHJ07.2-0_p2uafv.jpg"
+      },
+      "parc_des_princes": {
+        "name": "Parc des Princes",
+        "country": "France",
+        "city": "Paris",
+        "capacity": 47929,
+        "built": 1967,
+        "club": "Paris Saint Germain",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615814081/Parc-des-Princes-Paris_lijp5n.png"
+      },
+      "signal_iduna_park": {
+        "name": "Signal Iduna Park",
+        "country": "Germany",
+        "city": "Dortmund",
+        "capacity": 81365,
+        "built": 1974,
+        "club": "Borussia Dortmund",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615814337/borussia-dortmund-stadium-work_i2l0if.jpg"
+      },
+      "allianz_arena": {
+        "name": "Allianz Arena",
+        "country": "Germany",
+        "city": "Munich",
+        "capacity": 75024,
+        "built": 2005,
+        "club": "FC Bayern Munich",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312893/allianz_arena_ym9xol.jpg"
+      },
+      "olympiastadion": {
+        "name": "Olympiastadion",
+        "country": "Germany",
+        "city": "Berlin",
+        "capacity": 74475,
+        "built": 1936,
+        "club": "Hertha BSC",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615814463/2-format43_vc05ga.jpg"
+      },
+      "veltins_arena": {
+        "name": "Veltins-Arena",
+        "country": "Germany",
+        "city": "Gelsenkirchen",
+        "capacity": 62271,
+        "built": 2001,
+        "club": "FC Schalke 04",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615814571/170915_Euro_Bewerbung-copy-1440x810_husn1x.jpg"
+      },
+      "san_siro": {
+        "name": "San Siro",
+        "country": "Italy",
+        "city": "Milan",
+        "capacity": 78275,
+        "built": 1926,
+        "club": "AC Milan & Inter Milan",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615814693/0a_wwhd2u.jpg"
+      },
+      "stadio_olimpico": {
+        "name": "Stadio Olimpico",
+        "country": "Italy",
+        "city": "Rome",
+        "capacity": 70634,
+        "built": 1927,
+        "club": "AS Roma & SS Lazio",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615814793/tour-stadio-olimpico-roma-lazio_t4ucg2.jpg"
+      },
+      "stadio_san_nicola": {
+        "name": "Stadio San Nicola",
+        "country": "Italy",
+        "city": "Bari",
+        "capacity": 58270,
+        "built": 1990,
+        "club": "SSC Bari",
+        "addedBy": "->users.john",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615814905/b31b5449a7384b77f7ada86fe795f64e_iuab94.jpg"
+      },
+      "stadio_san_paolo": {
+        "name": "Stadio San Paolo",
+        "country": "Italy",
+        "city": "Naples",
+        "capacity": 54726,
+        "built": 1959,
+        "club": "SSC Napoli",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615815179/stadio-san-paolo_f3jfy4.jpg"
+      },
       "camp_nou": {
         "name": "Nou Camp",
-        "location": "Barcelona, Spain",
+        "country": "Spain",
+        "city": "Barcelona",
         "capacity": 99354,
         "built": 1957,
         "club": "FC Barcelona",
         "addedBy": "->users.john",
         "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312835/camp_nou_xpdyvy.jpg"
       },
-      "allianz_arena": {
-        "name": "Allianz Arena",
-        "location": "Munich, Germany",
-        "capacity": 75024,
-        "built": 2005,
-        "club": "Bayern Munich",
+      "santiago_bernabeu": {
+        "name": "Santiago Bernabéu",
+        "country": "Spain",
+        "city": "Madrid",
+        "capacity": 81044,
+        "built": 1947,
+        "club": "Real Madrid CF",
         "addedBy": "->users.jane",
-        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312893/allianz_arena_ym9xol.jpg"
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615815301/bernabeu31_rmed3m.jpg"
       },
-      "": {
-        "name": "Stamford Bridge",
-        "location": "London, United Kingdom",
-        "capacity": 41387,
-        "built": 1876,
-        "club": "Chelsea FC",
+      "metropolitano_stadium": {
+        "name": "Metropolitano Stadium",
+        "country": "Spain",
+        "city": "Madrid",
+        "capacity": 68456,
+        "built": 1994,
+        "club": "Atlético Madrid",
         "addedBy": "->users.john",
-        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312892/stamford_bridge_kdaid1.jpg"
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615815395/es-madrid-wanda-pg-159-p3_qa3ggk.jpg"
+      },
+      "estadio_benito_villamarin": {
+        "name": "Estadio Benito Villamarín",
+        "country": "Spain",
+        "city": "Seville",
+        "capacity": 99354,
+        "built": 1929,
+        "club": "Real Betis",
+        "addedBy": "->users.jane",
+        "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615815470/image_content_19800409_20180513004059_xftvmf.jpg"
       }
     }
   }
