@@ -1,6 +1,6 @@
 "use strict";
 
-const { string } = require("@hapi/joi");
+const Joi = require("@hapi/joi");
 const Stadium = require("../models/stadium");
 const User = require("../models/user");
 const ImageStore = require('../utils/image-store');
