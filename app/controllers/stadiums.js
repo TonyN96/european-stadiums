@@ -13,11 +13,11 @@ const Stadiums = {
                 let spainStadiums = [];
                 let germanyStadiums = [];
                 let italyStadiums = [];
-                let englandStadiums = [];
+                let ukStadiums = [];
                 let franceStadiums = [];
                 for (let x = 0; x < stadiums.length; x++) {
-                    if (stadiums[x].country == "England") {
-                        englandStadiums.push(stadiums[x]);
+                    if (stadiums[x].country == "United Kingdom") {
+                        ukStadiums.push(stadiums[x]);
                     } else if (stadiums[x].country == "France") {
                         franceStadiums.push(stadiums[x]);
                     } else if (stadiums[x].country == "Germany") {
@@ -33,7 +33,7 @@ const Stadiums = {
                     spainStadiums: spainStadiums,
                     germanyStadiums: germanyStadiums,
                     italyStadiums: italyStadiums,
-                    englandStadiums: englandStadiums,
+                    ukStadiums: ukStadiums,
                     franceStadiums: franceStadiums
                 });
             } catch (err) {

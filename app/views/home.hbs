@@ -7,6 +7,11 @@
             <div class="uk-margin">
 
                 <div class="uk-flex uk-flex-center uk-flex-middle uk-grid-small" uk-grid>
+                    <div class="uk-text-left">
+                        <h2 class="uk-heading">
+                            Stadiums
+                        </h2>
+                    </div>
                     <div class="uk-width-expand uk-text-right">
                         <a href="add-stadium">
                             <button class="uk-button uk-button-secondary">Add Stadium</button>
@@ -15,36 +20,41 @@
                 </div>
 
             </div>
+            
+            <h2 class="uk-heading-line uk-text-center"><span>United Kingdom</span></h2>
+            <div class="uk-child-width-expand uk-margin-medium uk-grid-width-1-3 uk-margin-large-bottom" uk-grid>
+                {{#each ukStadiums}}
+                    {{> list-stadiums}}
+                {{/each}}
+            </div>
 
-            <h2 class="ui-h2">England</h2>
+            <h2 class="uk-heading-line uk-text-center"><span>France</span></h2>
+            <div class="uk-child-width-expand uk-margin-medium uk-grid-width-1-3 uk-margin-large-bottom" uk-grid>
+                {{#each franceStadiums}}
+                    {{> list-stadiums}}
+                {{/each}}
+            </div>
 
-            {{#each englandStadiums}}
-                {{> list-stadiums}}
-            {{/each}}
+            <h2 class="uk-heading-line uk-text-center"><span>Germany</span></h2>
+            <div class="uk-child-width-expand uk-margin-medium uk-grid-width-1-3 uk-margin-large-bottom" uk-grid>
+                {{#each germanyStadiums}}
+                    {{> list-stadiums}}
+                {{/each}}
+            </div>
 
-            <h2 class="ui-h2">France</h2>
+            <h2 class="uk-heading-line uk-text-center"><span>Italy</span></h2>
+            <div class="uk-child-width-expand uk-margin-medium uk-grid-width-1-3 uk-margin-large-bottom" uk-grid>
+                {{#each italyStadiums}}
+                    {{> list-stadiums}}
+                {{/each}}
+            </div>
 
-            {{#each franceStadiums}}
-                {{> list-stadiums}}
-            {{/each}}
-
-            <h2 class="ui-h2">Germany</h2>
-
-            {{#each germanyStadiums}}
-                {{> list-stadiums}}
-            {{/each}}
-
-            <h2 class="ui-h2">Italy</h2>
-
-            {{#each italyStadiums}}
-                {{> list-stadiums}}
-            {{/each}}
-
-            <h2 class="ui-h2">Spain</h2>
-
-            {{#each spainStadiums}}
-                {{> list-stadiums}}
-            {{/each}}
+            <h2 class="uk-heading-line uk-text-center"><span>Spain</span></h2>
+            <div class="uk-child-width-expand uk-margin-medium uk-grid-width-1-3 uk-margin-large-bottom" uk-grid>
+                {{#each spainStadiums}}
+                    {{> list-stadiums}}
+                {{/each}}
+            </div>
 
         </div>
     </div>
