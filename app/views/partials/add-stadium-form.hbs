@@ -1,4 +1,6 @@
 <div class="uk-margin uk-width-expand uk-margin-auto">
+    <h3 class="uk-text-center">Add Stadium</h3>
+    {{> error }}
     <form class="uk-form-stacked uk-text-left" action="add-stadium" method="POST" enctype="multipart/form-data">
         <div class="uk-grid uk-grid-stack">
             <div class="uk-width-expand">
@@ -21,44 +23,34 @@
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">City:</div>
-                    <div class="uk-form-controls">
-                        <input class="uk-input" id="form-stacked-text" type="text" name="city"
-                            placeholder="e.g. Barcelona" />
-                    </div>
+                    <input class="uk-input" id="form-stacked-text" type="text" name="city"
+                        placeholder="e.g. Barcelona" />
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">Capacity:</div>
-                    <div class="uk-form-controls">
-                        <input class="uk-input" id="form-stacked-text" type="number" name="capacity"
-                            placeholder="e.g. 99354" />
-                    </div>
+                    <input class="uk-input" id="form-stacked-text" type="number" name="capacity"
+                        placeholder="e.g. 99354" />
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">Year built:</div>
-                    <div class="uk-form-controls">
-                        <input class="uk-input" id="form-stacked-text" type="number" name="built" placeholder="e.g. 1957" />
-                    </div>
+                    <input class="uk-input" id="form-stacked-text" type="number" name="built" placeholder="e.g. 1957" />
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">Club:</div>
-                    <div class="uk-form-controls">
-                        <input class="uk-input" id="form-stacked-text" type="name" name="club"
-                            placeholder="e.g. FC Barcelona" />
-                    </div>
+                    <input class="uk-input" id="form-stacked-text" type="name" name="club"
+                        placeholder="e.g. FC Barcelona" />
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">Image:</div>
-                    <div class="uk-form-controls">
-                       <input type="file" class="uk-input" name="imagefile" accept="image/png, image/jpeg">
-                    </div>
+                    <input type="file" name="imagefile" accept="image/png, image/jpeg">
                 </div>
                 <div class="uk-width-1">
                     <div class="uk-margin">
-                        <button class="submit uk-button uk-button-secondary uk-button-large uk-width-1-1">Add Stadium</button>
+                        <button class="submit uk-button uk-button-secondary uk-button-large uk-width-1-1">Add
+                            Stadium</button>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-    {{> error }}
 </div>

@@ -1,4 +1,6 @@
 <div class="uk-margin uk-width-expand uk-margin-auto">
+    <h3 class="uk-text-center">Edit Stadium - {{stadium.name}}</h3>
+    {{> error }}
     <form class="uk-form-stacked uk-text-left" action="{{stadium._id}}" method="POST" enctype="multipart/form-data">
         <div class="uk-grid uk-grid-stack">
             <div class="uk-width-expand">
@@ -60,5 +62,4 @@
             </div>
         </div>
     </form>
-    {{> error }}
 </div>
