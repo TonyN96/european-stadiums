@@ -57,9 +57,9 @@ const Stadiums = {
                 country: Joi.string().required(),
                 city: Joi.string().required(),
                 capacity: Joi.number().integer().required(),
-                built: Joi.number().integer().min(1850).max(2021).required(),
+                built: Joi.number().integer().min(1800).max(2021).required(),
                 club: Joi.string().required(),
-                imagefile: Joi.any().optional(),
+                imagefile: Joi.any().required(),
             },
             options: {
                 abortEarly: false,
@@ -132,7 +132,7 @@ const Stadiums = {
                 capacity: Joi.number().integer().required(),
                 built: Joi.number().integer().min(1850).max(2021).required(),
                 club: Joi.string().required(),
-                imagefile: Joi.any().optional(),
+                imagefile: Joi.any().required(),
             },
             options: {
                 abortEarly: false,
