@@ -4,12 +4,15 @@ const Joi = require("@hapi/joi");
 const Stadium = require("../models/stadium");
 const User = require("../models/user");
 const ImageStore = require('../utils/image-store');
+const env = require('dotenv');
+env.config();
 
 const Stadiums = {
     index: {
         handler: async function (request, h) {
             try {
                 const stadiums = await Stadium.find().populate("addedBy").lean();
+                const mapsKey = process.env.mapsKey;
                 let spainStadiums = [];
                 let germanyStadiums = [];
                 let italyStadiums = [];
@@ -30,6 +33,7 @@ const Stadiums = {
                 }
                 return h.view('home', {
                     title: 'European Stadiums',
+                    mapsKey: mapsKey,
                     spainStadiums: spainStadiums,
                     germanyStadiums: germanyStadiums,
                     italyStadiums: italyStadiums,
