@@ -1,9 +1,9 @@
 <div class="uk-width-1-4">
     <h4 class="uk-title uk-text-medium">{{name}}</h4>
 
-    <div class="stadium-thumbnail" style="background-image: url('{{imageUrl}}');" uk-lightbox>
-        <a class="uk-inline" href="{{imageUrl}}">
-            <div style="height: 100%; width: 100%;"></div>
+    <div uk-lightbox>
+        <a href="{{imageUrl}}" data-caption="{{name}}, {{city}}">
+            <div class="stadium-thumbnail" style="background-image: url('{{imageUrl}}');"></div>
         </a>
     </div>
 
@@ -22,7 +22,7 @@
 
             <div class="uk-inline" style="vertical-align: baseline;" uk-lightbox>
                 <a href="https://www.google.com/maps/embed/v1/place?key={{mapsKey}}&q={{name}}+Stadium,{{city}}"
-                    data-caption="Google Maps" data-type="iframe"><i class="fas fa-map-marker-alt"
+                    data-caption="{{name}}, {{city}}" data-type="iframe"><i class="fas fa-map-marker-alt"
                         style="color: rgba(49, 216, 57, 0.829); font-size: 24px;" title="View on map"
                         uk-tooltip></i></a>
             </div>
