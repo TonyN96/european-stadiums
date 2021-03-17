@@ -12,7 +12,10 @@ const Stadiums = {
         handler: async function (request, h) {
             try {
                 const stadiums = await Stadium.find().populate("addedBy").lean();
+                const users = await User.find().lean();
                 const mapsKey = process.env.mapsKey;
+                const stadiumsCount = stadiums.length;
+                const usersCount = users.length;
                 let spainStadiums = [];
                 let germanyStadiums = [];
                 let italyStadiums = [];
@@ -34,6 +37,8 @@ const Stadiums = {
                 return h.view('home', {
                     title: 'European Stadiums',
                     mapsKey: mapsKey,
+                    usersCount: usersCount,
+                    stadiumsCount: stadiumsCount,
                     spainStadiums: spainStadiums,
                     germanyStadiums: germanyStadiums,
                     italyStadiums: italyStadiums,
