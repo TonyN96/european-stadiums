@@ -11,20 +11,22 @@
                             placeholder="e.g. Nou Camp" />
                     </div>
                 </div>
-                <div class="uk-margin">
-                    <div class="uk-form-label">Country:</div>
-                    <select class="uk-select" id="form-stacked-text" name="country">
-                        <option value="England">England</option>
-                        <option value="France">France</option>
-                        <option value="Germany">Germany</option>
-                        <option value="Italy">Italy</option>
-                        <option value="Spain">Spain</option>
-                    </select>
-                </div>
-                <div class="uk-margin">
-                    <div class="uk-form-label">City:</div>
-                    <input class="uk-input" id="form-stacked-text" type="text" name="city"
-                        placeholder="e.g. Barcelona" />
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-1-2@s">
+                        <div class="uk-form-label">City:</div>
+                        <input class="uk-input" id="form-stacked-text" type="text" name="city"
+                            placeholder="e.g. Barcelona" />
+                    </div>
+                    <div class="uk-width-1-2@s">
+                        <div class="uk-form-label">Country:</div>
+                        <select class="uk-select" id="form-stacked-text" name="country">
+                            <option value="England">England</option>
+                            <option value="France">France</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Italy">Italy</option>
+                            <option value="Spain">Spain</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="uk-margin">
                     <div class="uk-form-label">Capacity:</div>
@@ -40,8 +42,20 @@
                     <input class="uk-input" id="form-stacked-text" type="name" name="club"
                         placeholder="e.g. FC Barcelona" />
                 </div>
+                <div class="uk-grid-small" uk-grid>
+                    <div class="uk-width-1-2@s">
+                        <div class="uk-form-label">X co-ordinate:</div>
+                        <input class="uk-input" id="form-stacked-text" type="text" name="xcoord"
+                            placeholder="e.g. 41.381024762375205" />
+                    </div>
+                    <div class="uk-width-1-2@s">
+                        <div class="uk-form-label">Y co-ordinate:</div>
+                        <input class="uk-input" id="form-stacked-text" type="text" name="ycoord"
+                            placeholder="e.g. 2.122776888754896" />
+                    </div>
+                </div>
                 <div class="uk-margin">
-                    <div class="uk-form-label">Image:</div>
+                    <div class="uk-form-label">Image (required):</div>
                     <input type="file" name="imagefile" accept="image/png, image/jpeg">
                 </div>
                 <div class="uk-width-1">

@@ -14,7 +14,8 @@ const stadiumSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
-  imageUrl: String
+  imageUrl: String,
+  coords: Array
 });
 
 module.exports = Mongoose.model("Stadium", stadiumSchema);
