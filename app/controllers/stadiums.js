@@ -12,7 +12,10 @@ const Stadiums = {
         handler: async function (request, h) {
             try {
                 const stadiums = await Stadium.find().populate("addedBy").lean();
+                const users = await User.find().lean();
                 const mapsKey = process.env.mapsKey;
+                const stadiumsCount = stadiums.length;
+                const usersCount = users.length;
                 let spainStadiums = [];
                 let germanyStadiums = [];
                 let italyStadiums = [];
@@ -34,6 +37,8 @@ const Stadiums = {
                 return h.view('home', {
                     title: 'European Stadiums',
                     mapsKey: mapsKey,
+                    usersCount: usersCount,
+                    stadiumsCount: stadiumsCount,
                     spainStadiums: spainStadiums,
                     germanyStadiums: germanyStadiums,
                     italyStadiums: italyStadiums,
@@ -59,6 +64,8 @@ const Stadiums = {
                 capacity: Joi.number().integer().required(),
                 built: Joi.number().integer().min(1800).max(2021).required(),
                 club: Joi.string().required(),
+                xcoord: Joi.string().required(),
+                ycoord: Joi.string().required(),
                 imagefile: Joi.any().required(),
             },
             options: {
@@ -81,6 +88,7 @@ const Stadiums = {
                 const data = request.payload;
                 const result = await ImageStore.uploadImage(data.imagefile);
                 const imageUrl = result.url;
+                let coords = [data.xcoord, data.ycoord];
                 const newStadium = new Stadium({
                     name: data.name,
                     country: data.country,
@@ -88,6 +96,7 @@ const Stadiums = {
                     capacity: data.capacity,
                     built: data.built,
                     club: data.club,
+                    coords: coords,
                     addedBy: user._id,
                     imageUrl: imageUrl,
                 });
@@ -132,14 +141,19 @@ const Stadiums = {
                 capacity: Joi.number().integer().required(),
                 built: Joi.number().integer().min(1850).max(2021).required(),
                 club: Joi.string().required(),
+                xcoord: Joi.string().required(),
+                ycoord: Joi.string().required(),
                 imagefile: Joi.any().required(),
             },
             options: {
                 abortEarly: false,
             },
-            failAction: function (request, h, error) {
+            failAction: async function (request, h, error) {
+                const stadiumId = request.params.id;
+                const stadium = await Stadium.findById(stadiumId).lean();
                 return h
-                    .view("home", {
+                    .view("edit-stadium", {
+                        stadium: stadium,
                         title: "Error editing stadium..",
                         errors: error.details,
                     })
@@ -155,6 +169,7 @@ const Stadiums = {
                 const data = request.payload;
                 const result = await ImageStore.uploadImage(data.imagefile);
                 const imageUrl = result.url;
+                let coords = [data.xcoord, data.ycoord];
                 await Stadium.updateOne(
                     { _id: stadiumId },
                     {
@@ -164,6 +179,7 @@ const Stadiums = {
                         capacity: data.capacity,
                         built: data.built,
                         club: data.club,
+                        coords: coords,
                         addedBy: user._id,
                         imageUrl: imageUrl,
                     }

@@ -1,39 +1,50 @@
-<div class="uk-width-1-4">
-    <h4 class="uk-title uk-text-medium">{{name}}</h4>
+<div class="uk-flex uk-flex-between uk-flex-middle uk-margin-medium">
+    <h2 class="uk-text-medium uk-text-left uk-margin-remove"><span>{{title}}</span></h2>
+    <p class="uk-text-muted uk-text-right">Count: {{stadiums.length}}</p>
+</div>
+<div class="uk-child-width-expand uk-grid-width-1-3 uk-margin-large-bottom" uk-grid>
+    {{#each stadiums }}
 
-    <div uk-lightbox>
-        <a href="{{imageUrl}}" data-caption="{{name}}, {{city}}">
-            <div class="stadium-thumbnail" style="background-image: url('{{imageUrl}}');"></div>
-        </a>
-    </div>
+    <div class="uk-width-1-4">
+        <h4 class="uk-title uk-text-medium">{{name}}</h4>
 
-    <div class="uk-margin uk-width-1-1 uk-text-left uk-text-small">
-        City: {{city}} <br>
-        Capacity: {{capacity}} <br>
-        Built: {{built}} <br>
-        Club: {{club}} <br>
-    </div>
+        <div uk-lightbox>
+            <a href="{{imageUrl}}" data-caption="{{name}}, {{city}}">
+                <div class="stadium-thumbnail" style="background-image: url('{{imageUrl}}');"></div>
+            </a>
+        </div>
 
-    <div class="uk-width-expand uk-flex uk-flex-between uk-flex-bottom">
+        <div class="uk-margin uk-width-1-1 uk-text-left uk-text-small">
+            City: {{city}} <br>
+            Capacity: {{capacity}} <br>
+            Built: {{built}} <br>
+            Club: {{club}} <br>
+        </div>
 
-        <div class="uk-text-meta">Added by: {{addedBy.firstName}} {{addedBy.lastName}}</div>
+        <div class="uk-width-expand uk-flex uk-flex-between uk-flex-bottom">
 
-        <div>
+            <div class="uk-text-meta">Added by: {{addedBy.firstName}} {{addedBy.lastName}}</div>
 
-            <div class="uk-inline" style="vertical-align: baseline;" uk-lightbox>
-                <a href="https://www.google.com/maps/embed/v1/place?key={{mapsKey}}&q={{name}}+Stadium,{{city}}"
-                    data-caption="{{name}}, {{city}}" data-type="iframe"><i class="fas fa-map-marker-alt"
-                        style="color: rgba(49, 216, 57, 0.829); font-size: 24px;" title="View on map"
-                        uk-tooltip></i></a>
+            <div>
+
+                <div class="uk-inline" style="vertical-align: baseline;" uk-lightbox>
+                    <a href="https://www.google.com/maps/embed/v1/place?key={{../mapsKey}}&q={{coords.[0]}},{{coords.[1]}}&maptype=satellite"
+                        data-caption="{{name}}, {{city}}" data-type="iframe"><i class="fas fa-map-marker-alt"
+                            style="color: rgba(49, 216, 57, 0.829); font-size: 24px;" title="View on map"
+                            uk-tooltip></i></a>
+                </div>
+
+                <a href="/delete-stadium/{{_id}}"><i class="fas fa-times-circle"
+                        style="color: rgba(235, 38, 38, 0.829); font-size: 24px;" title="Delete" uk-tooltip></i></a>
+                <a href="/edit-stadium/{{_id}}"><i class="fas fa-edit"
+                        style="color: rgba(50, 137, 219, 0.829); font-size: 24px;" title="Edit" uk-tooltip></i></a>
+
             </div>
 
-            <a href="/delete-stadium/{{_id}}"><i class="fas fa-times-circle"
-                    style="color: rgba(235, 38, 38, 0.829); font-size: 24px;" title="Delete" uk-tooltip></i></a>
-            <a href="/edit-stadium/{{_id}}"><i class="fas fa-edit"
-                    style="color: rgba(50, 137, 219, 0.829); font-size: 24px;" title="Edit" uk-tooltip></i></a>
-        
         </div>
 
     </div>
+
+    {{/each}}
 
 </div>
