@@ -10,9 +10,8 @@ const env = require('dotenv');
 const Joi = require("@hapi/joi");
 
 const server = Hapi.server({
-    port: 3000,
-    host: 'localhost',
-});
+    port: process.env.PORT || 3000,
+  });
 
 const credentials = {
   cloud_name: process.env.name,
