@@ -5,13 +5,15 @@
         "firstName": "John",
         "lastName": "Doe",
         "email": "john@doe.com",
-        "password": "secret"
+        "password": "secret",
+        "admin": true
       },
       "jane": {
         "firstName": "Jane",
         "lastName": "Doe",
         "email": "jane@doe.com",
-        "password": "secret"
+        "password": "secret",
+        "admin": false
       }
     },
     "stadiums": {
