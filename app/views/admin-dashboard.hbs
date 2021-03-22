@@ -1,0 +1,47 @@
+{{> main-menu }}
+
+<div class="uk-container uk-margin ">
+    <div class="uk-child-width-expand">
+        <table class="uk-table uk-width-1-1">
+            <thead>
+                <tr>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>E-mail</th>
+                    <th>Admin Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each users}}
+                <tr>
+                    <td>{{firstName}}</td>
+                    <td>{{lastName}}</td>
+                    <td>{{email}}</td>
+                    <td>{{#if admin}}Yes{{else}}No{{/if}}</td>
+                    <td>
+                        <div class="uk-inline" uk-toggle="target: #delete-user-{{_id}}"
+                            style="cursor: pointer; vertical-align: baseline;"><i class="fas fa-times-circle"
+                                style="color: rgba(235, 38, 38, 0.829); font-size: 24px;" title="Delete" uk-tooltip></i>
+                        </div>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{#each users}}
+<div id="delete-user-{{_id}}" uk-modal>
+    <div class="uk-modal-dialog uk-modal-body">
+        <h2 class="uk-modal-title">Delete Account - {{firstName}} {{lastName}}</h2>
+        <p>Are you sure you want to delete this account?</p>
+        <p class="uk-text-center">
+            <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+            <a href="delete-account/{{_id}}"><button class="uk-button" style="background-color: red; color: white;"
+                    type="button">Delete</button></a>
+        </p>
+    </div>
+</div>
+{{/each}}

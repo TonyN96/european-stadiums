@@ -53,7 +53,8 @@ const Accounts = {
                     firstName: payload.firstName,
                     lastName: payload.lastName,
                     email: payload.email,
-                    password: payload.password
+                    password: payload.password,
+                    admin: false
                 });
                 user = await newUser.save();
                 request.cookieAuth.set({ id: user.id });
@@ -151,12 +152,29 @@ const Accounts = {
     deleteAccount: {
         handler: async function (request, h) {
             try {
-                const id = request.auth.credentials.id;
+                const id = request.params.id;
                 const user = await User.findById(id);
+                const currentUserId = request.auth.credentials.id;
+                const currentUser = await User.findById(currentUserId);
                 await user.remove();
-                return h.redirect("/");
+                if (currentUser.admin && currentUserId != id) {
+                    return h.redirect("/admin-dashboard");
+                } else {
+                    return h.redirect("/");
+                }
             } catch (err) {
                 return h.view("main", { errors: [{ message: err.message }] });
+            }
+        }
+    },
+
+    adminDashboard: {
+        handler: async function (request, h) {
+            try {
+                const users = await User.find().lean();
+                return h.view("admin-dashboard", { users: users })
+            } catch (err) {
+                return h.redirect("/", { errors: [{ message: err.message }] });
             }
         }
     }
