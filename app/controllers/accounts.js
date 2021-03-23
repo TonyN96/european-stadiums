@@ -9,7 +9,9 @@ const Accounts = {
     index: {
         auth: false,
         handler: function (request, h) {
-            return h.view('main', { title: 'Welcome to European Stadiums' });
+            return h.view('main', {
+                title: 'European Stadiums | Welcome'
+            });
         }
     },
 
@@ -17,7 +19,9 @@ const Accounts = {
     showSignup: {
         auth: false,
         handler: function (request, h) {
-            return h.view('signup', { title: 'Sign up for European Stadiums' });
+            return h.view('signup', {
+                title: 'European Stadiums | Sign up'
+            });
         }
     },
 
@@ -37,7 +41,7 @@ const Accounts = {
             failAction: function (request, h, error) {
                 return h
                     .view("signup", {
-                        title: "Sign up error",
+                        title: "European Stadiums | Signup",
                         errors: error.details,
                     })
                     .takeover()
@@ -67,7 +71,10 @@ const Accounts = {
                 request.cookieAuth.set({ id: user.id });
                 return h.redirect("/home");
             } catch (err) {
-                return h.view("signup", { errors: [{ message: err.message }] });
+                return h.view("signup", {
+                    title: "European Stadiums | Signup",
+                    errors: [{ message: err.message }]
+                });
             }
         }
     },
@@ -76,7 +83,9 @@ const Accounts = {
     showLogin: {
         auth: false,
         handler: function (request, h) {
-            return h.view('login', { title: 'Login to European Stadiums' });
+            return h.view('login', {
+                title: 'European Stadiums | Login'
+            });
         }
     },
 
@@ -99,7 +108,10 @@ const Accounts = {
                 request.cookieAuth.set({ id: user.id });
                 return h.redirect("/home");
             } catch (err) {
-                return h.view("login", { errors: [{ message: err.message }] });
+                return h.view("login", {
+                    title: "European Stadiums | Login",
+                    errors: [{ message: err.message }]
+                });
             }
         }
     },
@@ -121,9 +133,14 @@ const Accounts = {
                 // Find the current user by the cookie and pass into the settings view
                 const id = request.auth.credentials.id;
                 const user = await User.findById(id).lean();
-                return h.view("settings", { title: "Settings", user: user });
+                return h.view("settings", {
+                    title: "European Stadiums | Settings",
+                    user: user
+                });
             } catch (err) {
-                return h.view("login", { errors: [{ message: err.message }] });
+                return h.view("login", {
+                    title: "European Stadiums | Login",
+                    errors: [{ message: err.message }] });
             }
         }
     },
@@ -144,7 +161,7 @@ const Accounts = {
             failAction: function (request, h, error) {
                 return h
                     .view("settings", {
-                        title: "Sign up error",
+                        title: "European Stadiums | Login",
                         errors: error.details,
                     })
                     .takeover()
@@ -164,7 +181,10 @@ const Accounts = {
                 await user.save();
                 return h.redirect("/settings");
             } catch (err) {
-                return h.view("main", { errors: [{ message: err.message }] });
+                return h.view("main", {
+                    title: 'European Stadiums | Welcome',
+                    errors: [{ message: err.message }]
+                });
             }
         },
     },
@@ -188,7 +208,10 @@ const Accounts = {
                     return h.redirect("/");
                 }
             } catch (err) {
-                return h.view("main", { errors: [{ message: err.message }] });
+                return h.view("main", {
+                    title: "European Stadiums | Welcome",
+                    errors: [{ message: err.message }] 
+                });
             }
         }
     },
@@ -199,9 +222,14 @@ const Accounts = {
             try {
                 // Get all users registered to the app and pass into view
                 const users = await User.find().lean();
-                return h.view("admin-dashboard", { users: users })
+                return h.view("admin-dashboard", {
+                    title: "European Stadiums | Admin Dashboard",
+                    users: users
+                })
             } catch (err) {
-                return h.redirect("/", { errors: [{ message: err.message }] });
+                return h.redirect("/home", {
+                    errors: [{ message: err.message }] 
+                });
             }
         }
     }

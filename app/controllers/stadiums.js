@@ -43,7 +43,7 @@ const Stadiums = {
                 }
                 // Rendering home page with the object containing required view data
                 return h.view('home', {
-                    title: 'European Stadiums',
+                    title: 'European Stadiums | Home',
                     mapsKey: mapsKey,
                     usersCount: usersCount,
                     stadiumsCount: stadiumsCount,
@@ -62,7 +62,7 @@ const Stadiums = {
     // Method for displaying the add stadium view
     addStadiumView: {
         handler: function (request, h) {
-            return h.view('add-stadium', { title: 'Add a Stadium' });
+            return h.view('add-stadium', { title: 'European Stadiums | Add Stadium' });
         },
     },
 
@@ -87,7 +87,7 @@ const Stadiums = {
             failAction: function (request, h, error) {
                 return h
                     .view("add-stadium", {
-                        title: "Error adding stadium..",
+                        title: "European Stadiums | Error adding stadium..",
                         errors: error.details,
                     })
                     .takeover()
@@ -121,7 +121,10 @@ const Stadiums = {
                 await newStadium.save();
                 return h.redirect("/home");
             } catch (err) {
-                return h.view("add-stadium", { errors: [{ message: err.message }] });
+                return h.view("add-stadium", {
+                    title: "European Stadiums | Error adding stadium..",
+                    errors: [{ message: err.message }] 
+                });
             }
         },
         payload: {
@@ -143,7 +146,10 @@ const Stadiums = {
                 await Stadium.deleteOne(stadium);
                 return h.redirect("/home");
             } catch (err) {
-                return h.view("home", { errors: [{ message: err.message }] });
+                return h.view("home", {
+                    title: "European Stadiums | Error deleting stadium..",
+                    errors: [{ message: err.message }]
+                });
             }
         }
     },
@@ -154,7 +160,10 @@ const Stadiums = {
             const stadiumId = request.params.id;
             // The relevant stadium is passed into the view
             const stadium = await Stadium.findById(stadiumId).lean();
-            return h.view('edit-stadium', { stadium: stadium });
+            return h.view('edit-stadium', {
+                title: "European Stadiums | Edit Stadium",
+                stadium: stadium
+            });
         },
     },
     editStadium: {
@@ -181,7 +190,7 @@ const Stadiums = {
                 return h
                     .view("edit-stadium", {
                         stadium: stadium,
-                        title: "Error editing stadium..",
+                        title: "European Stadiums | Error editing stadium..",
                         errors: error.details,
                     })
                     .takeover()
@@ -219,7 +228,11 @@ const Stadiums = {
             } catch (err) {
                 const stadiumId = request.params.id;
                 const stadium = await Stadium.findById(stadiumId).lean();
-                return h.view("edit-stadium", { stadium: stadium, errors: [{ message: err.message }] });
+                return h.view("edit-stadium", {
+                    title: "European Stadiums | Error editing stadium..",
+                    stadium: stadium,
+                    errors: [{ message: err.message }]
+                });
             }
         },
         payload: {
