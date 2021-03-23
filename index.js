@@ -14,17 +14,17 @@ const server = Hapi.server({
   });
 
 const credentials = {
-  cloud_name: process.env.name,
-  api_key: process.env.key,
-  api_secret: process.env.secret
+    cloud_name: process.env.name,
+    api_key: process.env.key,
+    api_secret: process.env.secret
 };
 
 require('./app/models/db');
 
 const result = env.config();
 if (result.error) {
-  console.log(result.error.message);
-  process.exit(1);
+    console.log(result.error.message);
+    process.exit(1);
 }
 
 async function init() {
