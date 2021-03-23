@@ -10,22 +10,21 @@ const env = require('dotenv');
 const Joi = require("@hapi/joi");
 
 const server = Hapi.server({
-    port: 3000,
-    host: 'localhost',
+    port: process.env.PORT || 3000,
 });
 
 const credentials = {
-  cloud_name: process.env.name,
-  api_key: process.env.key,
-  api_secret: process.env.secret
+    cloud_name: process.env.name,
+    api_key: process.env.key,
+    api_secret: process.env.secret
 };
 
 require('./app/models/db');
 
 const result = env.config();
 if (result.error) {
-  console.log(result.error.message);
-  process.exit(1);
+    console.log(result.error.message);
+    process.exit(1);
 }
 
 async function init() {
