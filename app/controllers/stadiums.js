@@ -5,22 +5,29 @@ const Stadium = require("../models/stadium");
 const User = require("../models/user");
 const ImageStore = require('../utils/image-store');
 const env = require('dotenv');
+//Configure environment variables
 env.config();
 
 const Stadiums = {
+    // Method for displaying the home page
     index: {
         handler: async function (request, h) {
             try {
+                //Get all stadiums
                 const stadiums = await Stadium.find().populate("addedBy").lean();
+                // Get all users
                 const users = await User.find().lean();
+                // Google Maps API key for displaying the stadium map lightbox
                 const mapsKey = process.env.mapsKey;
                 const stadiumsCount = stadiums.length;
                 const usersCount = users.length;
+                // Arrays for categorising each stadiums based on country
                 let spainStadiums = [];
                 let germanyStadiums = [];
                 let italyStadiums = [];
                 let englandStadiums = [];
                 let franceStadiums = [];
+                // Array which puts stadium in respective array based on country
                 for (let x = 0; x < stadiums.length; x++) {
                     if (stadiums[x].country == "England") {
                         englandStadiums.push(stadiums[x]);
@@ -34,6 +41,7 @@ const Stadiums = {
                         spainStadiums.push(stadiums[x]);
                     }
                 }
+                // Rendering home page with the object containing required view data
                 return h.view('home', {
                     title: 'European Stadiums',
                     mapsKey: mapsKey,
@@ -50,14 +58,19 @@ const Stadiums = {
             }
         },
     },
+
+    // Method for displaying the add stadium view
     addStadiumView: {
         handler: function (request, h) {
             return h.view('add-stadium', { title: 'Add a Stadium' });
         },
     },
+
+    // Method for adding a new stadium
     addStadium: {
         validate: {
             payload: {
+                // Joi validation for the stadium details entered
                 name: Joi.string().required(),
                 country: Joi.string().required(),
                 city: Joi.string().required(),
@@ -83,12 +96,17 @@ const Stadiums = {
         },
         handler: async function (request, h) {
             try {
+                // Get current user from cookie
                 const id = request.auth.credentials.id;
                 const user = await User.findById(id);
                 const data = request.payload;
+                // Upload image to cloudinary db through ImageStore
                 const result = await ImageStore.uploadImage(data.imagefile);
+                // Save the URL of the cloudinary image upload
                 const imageUrl = result.url;
+                // Save stadium coordinates to coords variable
                 let coords = [data.xcoord, data.ycoord];
+                // Create new Stadium object using relevant data
                 const newStadium = new Stadium({
                     name: data.name,
                     country: data.country,
@@ -113,11 +131,15 @@ const Stadiums = {
             parse: true
         }
     },
+
+    // Method for deleting a stadium
     deleteStadium: {
         handler: async function (request, h) {
             try {
+                // Get stadium to be removed uisng id parameter
                 const stadiumId = request.params.id;
                 const stadium = Stadium.findById(stadiumId);
+                // Delete stadium
                 await Stadium.deleteOne(stadium);
                 return h.redirect("/home");
             } catch (err) {
@@ -125,9 +147,12 @@ const Stadiums = {
             }
         }
     },
+
+    // Method for displaying the edit stadium view
     editStadiumView: {
         handler: async function (request, h) {
             const stadiumId = request.params.id;
+            // The relevant stadium is passed into the view
             const stadium = await Stadium.findById(stadiumId).lean();
             return h.view('edit-stadium', { stadium: stadium });
         },
@@ -135,6 +160,7 @@ const Stadiums = {
     editStadium: {
         validate: {
             payload: {
+                // Joi validation for the updated stadium details
                 name: Joi.string().required(),
                 country: Joi.string().required(),
                 city: Joi.string().required(),
@@ -149,6 +175,7 @@ const Stadiums = {
                 abortEarly: false,
             },
             failAction: async function (request, h, error) {
+                // Should an error occur, page is refreshed using original stadium details
                 const stadiumId = request.params.id;
                 const stadium = await Stadium.findById(stadiumId).lean();
                 return h
@@ -167,9 +194,13 @@ const Stadiums = {
                 const user = await User.findById(userId);
                 const stadiumId = request.params.id;
                 const data = request.payload;
+                // Image uploaded to cloudinary using ImageStore
                 const result = await ImageStore.uploadImage(data.imagefile);
+                // Uploaded image URL saved
                 const imageUrl = result.url;
+                // Coordinates of stadium assigned to coords variable
                 let coords = [data.xcoord, data.ycoord];
+                // Updating stadium using relevant details
                 await Stadium.updateOne(
                     { _id: stadiumId },
                     {

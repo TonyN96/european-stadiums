@@ -1,7 +1,7 @@
 {
   "name": "european-stadiums",
   "version": "1.0.0",
-  "description": "A node.js web app detailing sports stadiums from around Europe.",
+  "description": "A node.js web app detailing football stadiums from Europe's top five leagues.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +11,7 @@
   "engines": {
     "node": "14.15.4"
   },
-  "author": "",
+  "author": "https://github.com/TonyN96",
   "license": "ISC",
   "dependencies": {
     "@hapi/boom": "^9.1.1",

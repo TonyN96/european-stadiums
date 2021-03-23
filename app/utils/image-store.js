@@ -7,6 +7,7 @@ const writeFile = util.promisify(fs.writeFile);
 
 const ImageStore = {
   configure: function() {
+    // Credentials for cloudinary account
     const credentials = {
       cloud_name: process.env.name,
       api_key: process.env.key,
