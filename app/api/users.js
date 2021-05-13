@@ -27,7 +27,7 @@ const Users = {
     },
   },
 
-  create: {
+  add: {
     auth: false,
     handler: async function (request, h) {
       const newUser = new User(request.payload);
@@ -36,6 +36,28 @@ const Users = {
         return h.response(user).code(201);
       }
       return Boom.badImplementation("error creating user");
+    },
+  },
+
+  edit: {
+    auth: false,
+    handler: async function (request, h) {
+      const userId = request.params.id;
+      const data = request.payload;
+      const user = await User.updateOne(
+        { _id: userId },
+        {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          password: data.password,
+          admin: data.admin,
+        }
+      );
+      if (user) {
+        return h.response(user).code(201);
+      }
+      return Boom.badImplementation("Error editing user");
     },
   },
 

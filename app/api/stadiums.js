@@ -35,7 +35,32 @@ const Stadiums = {
       if (stadium) {
         return h.response(stadium).code(201);
       }
-      return Boom.badImplementation("error creating stadium");
+      return Boom.badImplementation("Error adding stadium");
+    },
+  },
+
+  edit: {
+    auth: false,
+    handler: async function (request, h) {
+      const stadiumId = request.params.id;
+      const data = request.payload;
+      const coords = [data.xcoord, data.ycoord];
+      const stadium = await Stadium.updateOne(
+        { _id: stadiumId },
+        {
+          name: data.name,
+          country: data.country,
+          city: data.city,
+          capacity: data.capacity,
+          built: data.built,
+          club: data.club,
+          coords: coords,
+        }
+      );
+      if (stadium) {
+        return h.response(stadium).code(201);
+      }
+      return Boom.badImplementation("Error editing stadium");
     },
   },
 
@@ -50,7 +75,7 @@ const Stadiums = {
   deleteOne: {
     auth: false,
     handler: async function (request, h) {
-      const stadium = await Stadium.remove({ _id: request.params.id });
+      const stadium = await Stadium.deleteOne({ _id: request.params.id });
       if (stadium) {
         return { success: true };
       }

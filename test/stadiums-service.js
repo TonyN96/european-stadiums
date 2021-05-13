@@ -7,15 +7,6 @@ class StadiumsService {
     this.baseUrl = baseUrl;
   }
 
-  async getUsers() {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/users");
-      return response.data;
-    } catch (e) {
-      return null;
-    }
-  }
-
   async getUser(id) {
     try {
       const response = await axios.get(this.baseUrl + "/api/users/" + id);
@@ -25,18 +16,18 @@ class StadiumsService {
     }
   }
 
-  async createUser(newUser) {
+  async getAllUsers() {
     try {
-      const response = await axios.post(this.baseUrl + "/api/users", newUser);
+      const response = await axios.get(this.baseUrl + "/api/users");
       return response.data;
     } catch (e) {
       return null;
     }
   }
 
-  async deleteAllUsers() {
+  async addUser(newUser) {
     try {
-      const response = await axios.delete(this.baseUrl + "/api/users");
+      const response = await axios.post(this.baseUrl + "/api/users", newUser);
       return response.data;
     } catch (e) {
       return null;
@@ -52,6 +43,24 @@ class StadiumsService {
     }
   }
 
+  async deleteAllUsers() {
+    try {
+      const response = await axios.delete(this.baseUrl + "/api/users");
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async editUser(id, user) {
+    try {
+      const response = await axios.post(this.baseUrl + "/api/users/" + id, user);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
   async addStadium(stadium) {
     try {
       const response = await axios.post(this.baseUrl + "/api/stadiums", stadium);
@@ -61,9 +70,27 @@ class StadiumsService {
     }
   }
 
-  async getStadiums() {
+  async getStadium(id) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/stadiums/" + id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async getAllStadiums() {
     try {
       const response = await axios.get(this.baseUrl + "/api/stadiums");
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async editStadium(id, stadium) {
+    try {
+      const response = await axios.post(this.baseUrl + "/api/stadiums/" + id, stadium);
       return response.data;
     } catch (e) {
       return null;
