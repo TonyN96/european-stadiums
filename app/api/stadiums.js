@@ -16,7 +16,7 @@ const Stadiums = {
     auth: false,
     handler: async function (request, h) {
       try {
-        const stadium = await stadium.findOne({ _id: request.params.id });
+        const stadium = await Stadium.findOne({ _id: request.params.id });
         if (!stadium) {
           return Boom.notFound("No stadium with this id");
         }
@@ -27,11 +27,11 @@ const Stadiums = {
     },
   },
 
-  create: {
+  add: {
     auth: false,
     handler: async function (request, h) {
-      const newstadium = new stadium(request.payload);
-      const stadium = await newstadium.save();
+      const newStadium = new Stadium(request.payload);
+      const stadium = await newStadium.save();
       if (stadium) {
         return h.response(stadium).code(201);
       }
@@ -42,7 +42,7 @@ const Stadiums = {
   deleteAll: {
     auth: false,
     handler: async function (request, h) {
-      await stadium.remove({});
+      await Stadium.deleteMany({});
       return { success: true };
     },
   },
@@ -50,7 +50,7 @@ const Stadiums = {
   deleteOne: {
     auth: false,
     handler: async function (request, h) {
-      const stadium = await stadium.remove({ _id: request.params.id });
+      const stadium = await Stadium.remove({ _id: request.params.id });
       if (stadium) {
         return { success: true };
       }

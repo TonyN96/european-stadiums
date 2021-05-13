@@ -1,0 +1,67 @@
+{
+  "stadiumsApp": "http://localhost:3000",
+  "users": [
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john@doe.com",
+      "password": "secret",
+      "admin": true
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "jane@doe.com",
+      "password": "secret",
+      "admin": false
+    }
+  ],
+  "newUser": {
+    "firstName": "Michael",
+    "lastName": "Murphy",
+    "email": "michael@murphy.com",
+    "password": "secret"
+  },
+  "stadiums": [
+    {
+      "name": "Old Trafford",
+      "country": "England",
+      "city": "Manchester",
+      "capacity": 74140,
+      "built": 1909,
+      "club": "Manchester United FC",
+      "coords": [53.46318660696824, -2.2913722801175074],
+      "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615812356/1920px-Manchester_United_Panorama__288051523746_29_it6uuz.jpg"
+    },
+    {
+      "name": "St James' Park",
+      "country": "England",
+      "city": "Newcastle",
+      "capacity": 52305,
+      "built": 1892,
+      "club": "Newcastle United FC",
+      "coords": [54.9755845212852, -1.6216664207841147],
+      "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615816720/11833247-Activity-4_za4ehi.jpg"
+    },
+    {
+      "name": "Anfield",
+      "country": "England",
+      "city": "Liverpool",
+      "capacity": 53394,
+      "built": 1884,
+      "club": "Liverpool FC",
+      "coords": [53.4308713149566, -2.960845728877089],
+      "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615812716/1280px-Panorama_of_Anfield_with_new_main_stand__2829676137824_29_mdooii.jpg"
+    }
+  ],
+  "newStadium": {
+    "name": "Stamford Bridge",
+    "country": "England",
+    "city": "London",
+    "capacity": 41387,
+    "built": 1876,
+    "club": "Chelsea FC",
+    "coords": [51.48172309259984, -0.1909243105598856],
+    "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312892/stamford_bridge_kdaid1.jpg"
+  }
+}
