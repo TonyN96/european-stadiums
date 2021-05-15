@@ -11,6 +11,7 @@ module.exports = [
 
   { method: "GET", path: "/api/stadiums", config: Stadiums.find },
   { method: "GET", path: "/api/stadiums/{id}", config: Stadiums.findOne },
+  { method: "GET", path: "/api/stadiums/location/{id}", config: Stadiums.getLocation },
   { method: "POST", path: "/api/stadiums", config: Stadiums.add },
   { method: "POST", path: "/api/stadiums/{id}", config: Stadiums.edit },
   { method: "DELETE", path: "/api/stadiums/{id}", config: Stadiums.deleteOne },

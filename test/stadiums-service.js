@@ -114,6 +114,15 @@ class StadiumsService {
       return null;
     }
   }
+
+  async getStadiumLocation(id) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/stadiums/location/" + id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 module.exports = StadiumsService;

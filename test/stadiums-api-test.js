@@ -76,4 +76,12 @@ suite("Stadium API tests", function () {
     const d2 = await stadiumsService.getAllStadiums();
     assert.equal(d2.length, 0);
   });
+
+  test("Get stadium location", async function () {
+    const stadium = await stadiumsService.addStadium(stadiums[0]);
+    assert(stadium._id != null);
+    const stadiumLocation = await stadiumsService.getStadiumLocation(stadium._id);
+    assert(stadiumLocation != null);
+    assert.deepEqual(stadiumLocation, stadiums[0].coords);
+  });
 });

@@ -64,14 +64,6 @@ const Stadiums = {
     },
   },
 
-  deleteAll: {
-    auth: false,
-    handler: async function (request, h) {
-      await Stadium.deleteMany({});
-      return { success: true };
-    },
-  },
-
   deleteOne: {
     auth: false,
     handler: async function (request, h) {
@@ -80,6 +72,22 @@ const Stadiums = {
         return { success: true };
       }
       return Boom.notFound("id not found");
+    },
+  },
+
+  deleteAll: {
+    auth: false,
+    handler: async function (request, h) {
+      await Stadium.deleteMany({});
+      return { success: true };
+    },
+  },
+
+  getLocation: {
+    auth: false,
+    handler: async function (request, h) {
+      const stadium = await Stadium.findOne({ _id: request.params.id });
+      return stadium.coords;
     },
   },
 };
