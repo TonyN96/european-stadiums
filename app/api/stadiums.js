@@ -27,6 +27,21 @@ const Stadiums = {
     },
   },
 
+  findByCountry: {
+    auth: false,
+    handler: async function (request, h) {
+      const allStadiums = await Stadium.find();
+      const country = request.params.country;
+      let stadiums = [];
+      for (let x = 0; x < allStadiums.length; x++) {
+        if (allStadiums[x].country == country) {
+          stadiums.push(allStadiums[x]);
+        }
+      }
+      return stadiums;
+    },
+  },
+
   add: {
     auth: false,
     handler: async function (request, h) {
