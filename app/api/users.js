@@ -2,6 +2,8 @@
 
 const User = require("../models/user");
 const Boom = require("@hapi/boom");
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 const Users = {
   find: {
@@ -32,13 +34,46 @@ const Users = {
     handler: async function (request, h) {
       try {
         const user = await User.findOne({ email: request.payload.email });
+        // If the email entered is not registered, inform the user of this with a Boom message
         if (!user) {
           return Boom.unauthorized("User not found");
-        } else if (user.password !== request.payload.password) {
-          return Boom.unauthorized("Invalid password");
-        } else {
-          return user;
         }
+        // Ensure the password entered matches the password in the db
+        user.comparePassword(request.payload.password);
+        // Set the user's id as the cookie
+        request.cookieAuth.set({ id: user.id });
+        return user;
+      } catch (err) {
+        return Boom.notFound("internal db failure");
+      }
+    },
+  },
+
+  signup: {
+    auth: false,
+    handler: async function (request, h) {
+      try {
+        const payload = request.payload;
+        let user = await User.findByEmail(payload.email);
+        // If a user exists with email enter, inform the user of this with a Boom message
+        if (user) {
+          const message = "Email address is already registered";
+          throw Boom.badData(message);
+        }
+        // Hashing password using bcrypt module
+        const hash = await bcrypt.hash(payload.password, saltRounds);
+        // Create new user with details entered
+        const newUser = new User({
+          firstName: payload.firstName,
+          lastName: payload.lastName,
+          email: payload.email,
+          password: hash,
+          admin: false,
+        });
+        user = await newUser.save();
+        // Set the new user's id as the cookie
+        request.cookieAuth.set({ id: user.id });
+        return user;
       } catch (err) {
         return Boom.notFound("internal db failure");
       }
