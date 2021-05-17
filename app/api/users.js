@@ -6,14 +6,6 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 
 const Users = {
-  find: {
-    auth: false,
-    handler: async function (request, h) {
-      const users = await User.find();
-      return users;
-    },
-  },
-
   findOne: {
     auth: false,
     handler: async function (request, h) {
@@ -29,17 +21,26 @@ const Users = {
     },
   },
 
-  authenticate: {
+  findAll: {
     auth: false,
     handler: async function (request, h) {
+      const users = await User.find();
+      return users;
+    },
+  },
+
+  login: {
+    auth: false,
+    handler: async function (request, h) {
+      const { email, password } = request.payload;
       try {
-        const user = await User.findOne({ email: request.payload.email });
+        let user = await User.findByEmail(email);
         // If the email entered is not registered, inform the user of this with a Boom message
         if (!user) {
           return Boom.unauthorized("User not found");
         }
         // Ensure the password entered matches the password in the db
-        user.comparePassword(request.payload.password);
+        user.comparePassword(password);
         // Set the user's id as the cookie
         request.cookieAuth.set({ id: user.id });
         return user;
@@ -55,14 +56,11 @@ const Users = {
       try {
         const payload = request.payload;
         let user = await User.findByEmail(payload.email);
-        // If a user exists with email enter, inform the user of this with a Boom message
         if (user) {
           const message = "Email address is already registered";
           throw Boom.badData(message);
         }
-        // Hashing password using bcrypt module
         const hash = await bcrypt.hash(payload.password, saltRounds);
-        // Create new user with details entered
         const newUser = new User({
           firstName: payload.firstName,
           lastName: payload.lastName,
@@ -71,24 +69,14 @@ const Users = {
           admin: false,
         });
         user = await newUser.save();
-        // Set the new user's id as the cookie
         request.cookieAuth.set({ id: user.id });
-        return user;
+        if (user) {
+          return h.response(user).code(201);
+        }
+        return Boom.badImplementation("Error creating user");
       } catch (err) {
         return Boom.notFound("internal db failure");
       }
-    },
-  },
-
-  add: {
-    auth: false,
-    handler: async function (request, h) {
-      const newUser = new User(request.payload);
-      const user = await newUser.save();
-      if (user) {
-        return h.response(user).code(201);
-      }
-      return Boom.badImplementation("error creating user");
     },
   },
 
@@ -114,14 +102,6 @@ const Users = {
     },
   },
 
-  deleteAll: {
-    auth: false,
-    handler: async function (request, h) {
-      await User.deleteMany({});
-      return { success: true };
-    },
-  },
-
   deleteOne: {
     auth: false,
     handler: async function (request, h) {
@@ -130,6 +110,14 @@ const Users = {
         return { success: true };
       }
       return Boom.notFound("id not found");
+    },
+  },
+
+  deleteAll: {
+    auth: false,
+    handler: async function (request, h) {
+      await User.deleteMany({});
+      return { success: true };
     },
   },
 };

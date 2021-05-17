@@ -4,14 +4,6 @@ const Stadium = require("../models/stadium");
 const Boom = require("@hapi/boom");
 
 const Stadiums = {
-  find: {
-    auth: false,
-    handler: async function (request, h) {
-      const stadiums = await Stadium.find();
-      return stadiums;
-    },
-  },
-
   findOne: {
     auth: false,
     handler: async function (request, h) {
@@ -24,6 +16,14 @@ const Stadiums = {
       } catch (err) {
         return Boom.notFound("No stadium with this id");
       }
+    },
+  },
+
+  findAll: {
+    auth: false,
+    handler: async function (request, h) {
+      const stadiums = await Stadium.find();
+      return stadiums;
     },
   },
 
@@ -47,10 +47,7 @@ const Stadiums = {
     handler: async function (request, h) {
       const newStadium = new Stadium(request.payload);
       const stadium = await newStadium.save();
-      if (stadium) {
-        return h.response(stadium).code(201);
-      }
-      return Boom.badImplementation("Error adding stadium");
+      return stadium;
     },
   },
 
@@ -95,14 +92,6 @@ const Stadiums = {
     handler: async function (request, h) {
       await Stadium.deleteMany({});
       return { success: true };
-    },
-  },
-
-  getLocation: {
-    auth: false,
-    handler: async function (request, h) {
-      const stadium = await Stadium.findOne({ _id: request.params.id });
-      return stadium.coords;
     },
   },
 };

@@ -7,7 +7,9 @@ class StadiumsService {
     this.baseUrl = baseUrl;
   }
 
-  async getUser(id) {
+  /* User services */
+
+  async findOneUser(id) {
     try {
       const response = await axios.get(this.baseUrl + "/api/users/" + id);
       return response.data;
@@ -16,7 +18,7 @@ class StadiumsService {
     }
   }
 
-  async getAllUsers() {
+  async findAllUsers() {
     try {
       const response = await axios.get(this.baseUrl + "/api/users");
       return response.data;
@@ -25,9 +27,27 @@ class StadiumsService {
     }
   }
 
-  async addUser(newUser) {
+  async signupUser(newUser) {
     try {
       const response = await axios.post(this.baseUrl + "/api/users", newUser);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async loginUser(user) {
+    try {
+      const response = await axios.post(this.baseUrl + "/api/users/login", user);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async editUser(id, user) {
+    try {
+      const response = await axios.post(this.baseUrl + "/api/users/" + id, user);
       return response.data;
     } catch (e) {
       return null;
@@ -52,9 +72,29 @@ class StadiumsService {
     }
   }
 
-  async editUser(id, user) {
+  /* Stadium services */
+
+  async findOneStadium(id) {
     try {
-      const response = await axios.post(this.baseUrl + "/api/users/" + id, user);
+      const response = await axios.get(this.baseUrl + "/api/stadiums/" + id);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async findAllStadiums() {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/stadiums");
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async findStadiumByCountry(country) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/stadiums/country/" + country);
       return response.data;
     } catch (e) {
       return null;
@@ -64,24 +104,6 @@ class StadiumsService {
   async addStadium(stadium) {
     try {
       const response = await axios.post(this.baseUrl + "/api/stadiums", stadium);
-      return response.data;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  async getStadium(id) {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/stadiums/" + id);
-      return response.data;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  async getAllStadiums() {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/stadiums");
       return response.data;
     } catch (e) {
       return null;
@@ -109,15 +131,6 @@ class StadiumsService {
   async deleteAllStadiums() {
     try {
       const response = await axios.delete(this.baseUrl + "/api/stadiums");
-      return response.data;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  async getStadiumLocation(id) {
-    try {
-      const response = await axios.get(this.baseUrl + "/api/stadiums/location/" + id);
       return response.data;
     } catch (e) {
       return null;

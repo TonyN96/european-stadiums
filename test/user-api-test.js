@@ -19,56 +19,50 @@ suite("User API tests", function () {
     await stadiumsService.deleteAllUsers();
   });
 
-  test("Add a user", async function () {
-    const returnedUser = await stadiumsService.addUser(newUser);
-    assert(_.some([returnedUser], newUser), "returnedUser must be a superset of newUser");
-    assert.isDefined(returnedUser._id);
-  });
-
-  test("Get user", async function () {
-    const u1 = await stadiumsService.addUser(newUser);
-    const u2 = await stadiumsService.getUser(u1._id);
+  test("Find one user", async function () {
+    const u1 = await stadiumsService.signupUser(newUser);
+    const u2 = await stadiumsService.findOneUser(u1._id);
     assert.deepEqual(u1, u2);
   });
 
-  test("Get all users", async function () {
+  test("Find all users", async function () {
     for (let u of users) {
-      await stadiumsService.addUser(u);
+      await stadiumsService.signupUser(u);
     }
-    const allUsers = await stadiumsService.getAllUsers();
+    const allUsers = await stadiumsService.findAllUsers();
     assert.equal(allUsers.length, users.length);
   });
 
-  test("Get an invalid user", async function () {
-    const u1 = await stadiumsService.getUser("1234");
-    assert.isNull(u1);
-    const u2 = await stadiumsService.getUser("012345678901234567890123");
-    assert.isNull(u2);
+  test("Sign up a user", async function () {
+    const returnedUser = await stadiumsService.signupUser(newUser);
+    assert(returnedUser.firstName, newUser.firstName), "returnedUser firstName must match newUser firstName";
+    assert(returnedUser.lastName, newUser.lastName), "returnedUser lastName must match newUser lastName";
+    assert(returnedUser.email, newUser.email), "returnedUser email must match newUser email";
+    assert.isDefined(returnedUser._id);
   });
 
-  test("Get users detail", async function () {
-    for (let u of users) {
-      await stadiumsService.addUser(u);
-    }
-    const allUsers = await stadiumsService.getAllUsers();
-    for (var i = 0; i < users.length; i++) {
-      assert(_.some([allUsers[i]], users[i]), "returnedUser must be a superset of newUser");
-    }
+  test("Login a user", async function () {
+    let user = await stadiumsService.signupUser(newUser);
+    assert(user._id != null);
+    const returnedUser = await stadiumsService.loginUser(user.email, user.password);
+    assert.isDefined(returnedUser);
   });
 
   test("Edit a user", async function () {
-    let user = await stadiumsService.addUser(newUser);
-    assert(user._id != null);
-    await stadiumsService.editUser(user._id, users[0]);
-    let editedUser = await stadiumsService.getUser(user._id);
+    let user1 = await stadiumsService.signupUser(newUser);
+    assert(user1._id != null);
+    await stadiumsService.editUser(user1._id, users[0]);
+    let editedUser = await stadiumsService.findOneUser(user1._id);
     assert(editedUser.firstName == users[0].firstName);
   });
 
   test("Delete a user", async function () {
-    let u = await stadiumsService.addUser(newUser);
+    let u = await stadiumsService.signupUser(newUser);
     assert(u._id != null);
     await stadiumsService.deleteOneUser(u._id);
-    u = await stadiumsService.getUser(u._id);
+    u = await stadiumsService.findOneUser(u._id);
     assert(u == null);
   });
+
+  test("Delete all users", async function () {});
 });

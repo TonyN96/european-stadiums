@@ -1,18 +1,18 @@
 {
-  "stadiumsApp": "http://localhost:3000",
+  "stadiumsApp": "http://localhost:4000",
   "users": [
     {
       "firstName": "John",
       "lastName": "Doe",
       "email": "john@doe.com",
-      "password": "secret",
+      "password": "$2a$10$ve0GLz/Wnsf3Ny9enu5qquJU56Rh6U9Ad0X3fTVFStOpDBZgYGcg2",
       "admin": true
     },
     {
       "firstName": "Jane",
       "lastName": "Doe",
       "email": "jane@doe.com",
-      "password": "secret",
+      "password": "$2a$10$XZs8bbKz5HfDkVFcdLYOLO/If0s8TMEcEVS67qKW/.Z2JUB1jKbgS",
       "admin": false
     }
   ],
@@ -20,7 +20,7 @@
     "firstName": "Michael",
     "lastName": "Murphy",
     "email": "michael@murphy.com",
-    "password": "secret"
+    "password": "$2a$10$4MZGFI9/5HM9Ht7jlB5m/e.Q25nYbHQF7ntroptwabiEFlcRQypTS"
   },
   "stadiums": [
     {
@@ -53,5 +53,15 @@
       "coords": [53.4308713149566, -2.960845728877089],
       "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615812716/1280px-Panorama_of_Anfield_with_new_main_stand__2829676137824_29_mdooii.jpg"
     }
-  ]
+  ],
+  "newStadium": {
+    "name": "Stamford Bridge",
+    "country": "England",
+    "city": "London",
+    "capacity": 41387,
+    "built": 1876,
+    "club": "Chelsea FC",
+    "coords": [51.48172309259984, -0.1909243105598856],
+    "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312892/stamford_bridge_kdaid1.jpg"
+  }
 }
