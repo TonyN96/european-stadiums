@@ -20,7 +20,8 @@
     "firstName": "Michael",
     "lastName": "Murphy",
     "email": "michael@murphy.com",
-    "password": "$2a$10$4MZGFI9/5HM9Ht7jlB5m/e.Q25nYbHQF7ntroptwabiEFlcRQypTS"
+    "password": "$2a$10$4MZGFI9/5HM9Ht7jlB5m/e.Q25nYbHQF7ntroptwabiEFlcRQypTS",
+    "admin": true
   },
   "stadiums": [
     {
@@ -61,6 +62,7 @@
     "capacity": 41387,
     "built": 1876,
     "club": "Chelsea FC",
+    "addedBy": {},
     "coords": [51.48172309259984, -0.1909243105598856],
     "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312892/stamford_bridge_kdaid1.jpg"
   }

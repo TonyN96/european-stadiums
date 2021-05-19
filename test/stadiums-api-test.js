@@ -4,26 +4,34 @@ const assert = require("chai").assert;
 const StadiumsService = require("./stadiums-service");
 const fixtures = require("./fixtures.json");
 const _ = require("lodash");
+const env = require("dotenv");
+//Configure environment variables
+env.config();
 
 suite("Stadium API tests", function () {
   let stadiums = fixtures.stadiums;
   let newStadium = fixtures.newStadium;
+  let newUser = fixtures.newUser;
 
   const stadiumsService = new StadiumsService(fixtures.stadiumsApp);
 
   setup(async function () {
     await stadiumsService.deleteAllStadiums();
+    await stadiumsService.deleteAllUsers();
   });
 
   teardown(async function () {
     await stadiumsService.deleteAllStadiums();
+    await stadiumsService.deleteAllUsers();
   });
 
   test("Find one stadium", async function () {
-    const stadium1 = await stadiumsService.addStadium(newStadium);
-    assert(stadium1._id != null);
-    const stadium2 = await stadiumsService.findOneStadium(stadium1._id);
-    assert.deepEqual(stadium1, stadium2);
+    let user = await stadiumsService.signupUser(newUser);
+    newStadium.addedBy = user;
+    let stadium1 = await stadiumsService.addStadium(newStadium);
+    assert(stadium1 != null);
+    const oneStadium = await stadiumsService.findOneStadium(stadium1._id);
+    assert.deepEqual(stadium1, oneStadium);
   });
 
   test("Find all stadiums", async function () {
@@ -34,21 +42,34 @@ suite("Stadium API tests", function () {
     assert.equal(allStadiums.length, stadiums.length);
   });
 
-  test("Find stadium by country", async function () {});
+  test("Find stadium by country", async function () {
+    let user = await stadiumsService.signupUser(newUser);
+    newStadium.addedBy = user;
+    let stadium = await stadiumsService.addStadium(newStadium);
+    let country = stadium.country;
+    let stadiums = await stadiumsService.findStadiumByCountry(country);
+    assert.equal(stadium.country, stadiums[0].country);
+  });
 
   test("Add a stadium", async function () {
-    await stadiumsService.addStadium(newStadium);
-    const returnedStadiums = await stadiumsService.findAllStadiums();
-    assert.equal(returnedStadiums.length, 1);
-    assert(_.some([returnedStadiums[0]], newStadium), "returnedStadium[0] must be a superset of stadium[0]");
+    let user = await stadiumsService.signupUser(newUser);
+    newStadium.addedBy = user;
+    let stadium = await stadiumsService.addStadium(newStadium);
+    assert(stadium != null);
+    const oneStadium = await stadiumsService.findOneStadium(stadium._id);
+    assert(oneStadium._id != null);
+    assert(_.some([oneStadium], stadium), "returnedStadium must be a superset of stadium[0]");
   });
 
   test("Edit a stadium", async function () {
+    let user = await stadiumsService.signupUser(newUser);
+    newStadium.addedBy = user;
     let stadium = await stadiumsService.addStadium(newStadium);
     assert(stadium._id != null);
     await stadiumsService.editStadium(stadium._id, stadiums[0]);
     let editedStadium = await stadiumsService.findOneStadium(stadium._id);
-    assert(editedStadium.name == stadiums[0].name);
+    assert.equal(editedStadium.name, stadiums[0].name);
+    assert.equal(editedStadium._id, stadium._id);
   });
 
   test("Delete one stadium", async function () {
@@ -68,5 +89,10 @@ suite("Stadium API tests", function () {
     await stadiumsService.deleteAllStadiums();
     const d2 = await stadiumsService.findAllStadiums();
     assert.equal(d2.length, 0);
+  });
+
+  test("Get mapsKey", async function () {
+    let mapsKey = await stadiumsService.getMapsKey();
+    assert.isDefined(mapsKey);
   });
 });

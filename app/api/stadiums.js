@@ -1,6 +1,5 @@
 "use strict";
 
-const Joi = require("@hapi/joi");
 const Stadium = require("../models/stadium");
 const Boom = require("@hapi/boom");
 const User = require("../models/user");
@@ -51,7 +50,6 @@ const Stadiums = {
     auth: false,
     handler: async function (request, h) {
       const data = request.payload;
-      const user = await User.findById(data.userId);
       const newStadium = new Stadium({
         name: data.name,
         country: data.country,
@@ -61,7 +59,7 @@ const Stadiums = {
         club: data.club,
         coords: data.coords,
         imageUrl: data.imageUrl,
-        addedBy: user,
+        addedBy: data.addedBy,
       });
       const stadium = await newStadium.save();
       if (stadium) {

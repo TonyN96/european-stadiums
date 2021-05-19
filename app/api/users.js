@@ -38,14 +38,6 @@ const Users = {
     },
   },
 
-  getCount: {
-    auth: false,
-    handler: async function (request, h) {
-      const allUsers = await User.find();
-      return allUsers.length;
-    },
-  },
-
   login: {
     auth: false,
     handler: async function (request, h) {
@@ -83,7 +75,7 @@ const Users = {
           lastName: payload.lastName,
           email: payload.email,
           password: hash,
-          admin: false,
+          admin: payload.admin,
         });
         user = await newUser.save();
         if (user) {
@@ -128,14 +120,6 @@ const Users = {
         return { success: true };
       }
       return Boom.notFound("id not found");
-    },
-  },
-
-  deleteAll: {
-    auth: false,
-    handler: async function (request, h) {
-      await User.deleteMany({});
-      return { success: true };
     },
   },
 };

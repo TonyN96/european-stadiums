@@ -136,6 +136,15 @@ class StadiumsService {
       return null;
     }
   }
+
+  async getMapsKey() {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/stadiums/mapsKey");
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 module.exports = StadiumsService;

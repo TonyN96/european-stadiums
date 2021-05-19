@@ -6,7 +6,6 @@ module.exports = [
   { method: "GET", path: "/api/users/{id}", config: Users.findOne },
   { method: "GET", path: "/api/users", config: Users.findAll },
   { method: "GET", path: "/api/users/name/{id}", config: Users.findNameById },
-  { method: "GET", path: "/api/users/count", config: Users.getCount },
   { method: "POST", path: "/api/users", config: Users.signup },
   { method: "POST", path: "/api/users/login", config: Users.login },
   { method: "POST", path: "/api/users/{id}", config: Users.edit },
