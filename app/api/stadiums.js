@@ -1,7 +1,12 @@
 "use strict";
 
+const Joi = require("@hapi/joi");
 const Stadium = require("../models/stadium");
 const Boom = require("@hapi/boom");
+const User = require("../models/user");
+const env = require("dotenv");
+//Configure environment variables
+env.config();
 
 const Stadiums = {
   findOne: {
@@ -45,9 +50,24 @@ const Stadiums = {
   add: {
     auth: false,
     handler: async function (request, h) {
-      const newStadium = new Stadium(request.payload);
+      const data = request.payload;
+      const user = await User.findById(data.userId);
+      const newStadium = new Stadium({
+        name: data.name,
+        country: data.country,
+        city: data.city,
+        capacity: data.capacity,
+        built: data.built,
+        club: data.club,
+        coords: data.coords,
+        imageUrl: data.imageUrl,
+        addedBy: user,
+      });
       const stadium = await newStadium.save();
-      return stadium;
+      if (stadium) {
+        return h.response(stadium).code(201);
+      }
+      return Boom.badImplementation("Error adding stadium");
     },
   },
 
@@ -56,7 +76,6 @@ const Stadiums = {
     handler: async function (request, h) {
       const stadiumId = request.params.id;
       const data = request.payload;
-      const coords = [data.xcoord, data.ycoord];
       const stadium = await Stadium.updateOne(
         { _id: stadiumId },
         {
@@ -66,7 +85,7 @@ const Stadiums = {
           capacity: data.capacity,
           built: data.built,
           club: data.club,
-          coords: coords,
+          coords: data.coords,
         }
       );
       if (stadium) {
@@ -92,6 +111,14 @@ const Stadiums = {
     handler: async function (request, h) {
       await Stadium.deleteMany({});
       return { success: true };
+    },
+  },
+
+  getMapsKey: {
+    auth: false,
+    handler: async function (request, h) {
+      let mapsKey = process.env.mapsKey;
+      return mapsKey;
     },
   },
 };

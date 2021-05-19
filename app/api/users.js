@@ -29,6 +29,23 @@ const Users = {
     },
   },
 
+  findNameById: {
+    auth: false,
+    handler: async function (request, h) {
+      const user = await User.findById(request.params.id);
+      let userFullName = user.firstName + " " + user.lastName;
+      return userFullName;
+    },
+  },
+
+  getCount: {
+    auth: false,
+    handler: async function (request, h) {
+      const allUsers = await User.find();
+      return allUsers.length;
+    },
+  },
+
   login: {
     auth: false,
     handler: async function (request, h) {
@@ -69,7 +86,6 @@ const Users = {
           admin: false,
         });
         user = await newUser.save();
-        request.cookieAuth.set({ id: user.id });
         if (user) {
           return h.response(user).code(201);
         }
@@ -83,22 +99,24 @@ const Users = {
   edit: {
     auth: false,
     handler: async function (request, h) {
-      const userId = request.params.id;
-      const data = request.payload;
-      const user = await User.updateOne(
-        { _id: userId },
-        {
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          password: data.password,
-          admin: data.admin,
+      try {
+        const userId = request.params.id;
+        const data = request.payload;
+        const hash = await bcrypt.hash(data.password, saltRounds);
+        const user = await User.findById(userId);
+        user.firstName = data.firstName;
+        user.lastName = data.lastName;
+        user.email = data.email;
+        user.password = hash;
+        user.admin = data.admin;
+        const result = await user.save();
+        if (result) {
+          return h.response(user).code(201);
         }
-      );
-      if (user) {
-        return h.response(user).code(201);
+        return Boom.badImplementation("Error editing user");
+      } catch (err) {
+        return Boom.notFound("internal db failure");
       }
-      return Boom.badImplementation("Error editing user");
     },
   },
 

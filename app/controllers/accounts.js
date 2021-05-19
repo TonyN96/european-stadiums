@@ -103,17 +103,18 @@ const Accounts = {
         let user = await User.findByEmail(email);
         // If the email entered is not registered, inform the user of this with a Boom message
         if (!user) {
-          const message = "Email address is not registered";
-          throw Boom.unauthorized(message);
+          throw Boom.unauthorized("Email address is not registered");
         }
         // Ensure the password entered matches the password in the db
-        user.comparePassword(password);
+        let passwordResult = await user.comparePassword(password);
+        if (!passwordResult) {
+          throw Boom.unauthorized("Password mismatch");
+        }
         // Set the user's id as the cookie
         request.cookieAuth.set({ id: user.id });
         return h.redirect("/home");
       } catch (err) {
         return h.view("login", {
-          title: "European Stadiums | Login",
           errors: [{ message: err.message }],
         });
       }
