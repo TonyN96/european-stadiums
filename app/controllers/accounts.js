@@ -3,12 +3,7 @@
 const User = require("../models/user");
 const Boom = require("@hapi/boom");
 const Joi = require("@hapi/joi");
-<<<<<<< HEAD
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
-=======
 const Sanitizer = require("../utils/sanitizer");
->>>>>>> dev
 
 const Accounts = {
   // Method for displaying the inital index page
@@ -36,12 +31,6 @@ const Accounts = {
     validate: {
       payload: {
         //Joi validation for user details
-<<<<<<< HEAD
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().required(),
-=======
         firstName: Joi.string()
           .required()
           .regex(/^[a-zA-Z][a-z]{2,}$/),
@@ -52,7 +41,6 @@ const Accounts = {
         password: Joi.string()
           .required()
           .regex(/^[A-Za-z0-9]\w{8,}$/),
->>>>>>> dev
       },
       options: {
         abortEarly: false,
@@ -77,23 +65,12 @@ const Accounts = {
           const message = "Email address is already registered";
           throw Boom.badData(message);
         }
-<<<<<<< HEAD
-        // Hashing password using bcrypt module
-        const hash = await bcrypt.hash(payload.password, saltRounds);
-        // Create new user with details entered
-        const newUser = new User({
-          firstName: payload.firstName,
-          lastName: payload.lastName,
-          email: payload.email,
-          password: hash,
-=======
         // Create new user with details entered
         const newUser = new User({
           firstName: Sanitizer.sanitizeContent(payload.firstName),
           lastName: Sanitizer.sanitizeContent(payload.lastName),
           email: Sanitizer.sanitizeContent(payload.email),
           password: Sanitizer.sanitizeContent(payload.password),
->>>>>>> dev
           admin: false,
         });
         user = await newUser.save();
@@ -124,40 +101,23 @@ const Accounts = {
     auth: false,
     handler: async function (request, h) {
       // Get the email and password entered
-<<<<<<< HEAD
-      const { email, password } = request.payload;
-=======
       const email = Sanitizer.sanitizeContent(request.payload.email);
       const password = Sanitizer.sanitizeContent(request.payload.password);
->>>>>>> dev
       try {
         let user = await User.findByEmail(email);
         // If the email entered is not registered, inform the user of this with a Boom message
         if (!user) {
-<<<<<<< HEAD
-          throw Boom.unauthorized("Email address is not registered");
-        }
-        // Ensure the password entered matches the password in the db
-        let passwordResult = await user.comparePassword(password);
-        if (!passwordResult) {
-          throw Boom.unauthorized("Password mismatch");
-        }
-=======
           const message = "Email address is not registered";
           throw Boom.unauthorized(message);
         }
         // Ensure the password entered matches the password in the db
         user.comparePassword(password);
->>>>>>> dev
         // Set the user's id as the cookie
         request.cookieAuth.set({ id: user.id });
         return h.redirect("/home");
       } catch (err) {
         return h.view("login", {
-<<<<<<< HEAD
-=======
           title: "European Stadiums | Login",
->>>>>>> dev
           errors: [{ message: err.message }],
         });
       }
@@ -199,12 +159,6 @@ const Accounts = {
     validate: {
       payload: {
         // Joi validation for new user details entered
-<<<<<<< HEAD
-        firstName: Joi.string().required(),
-        lastName: Joi.string().required(),
-        email: Joi.string().email().required(),
-        password: Joi.string().required(),
-=======
         firstName: Joi.string()
           .required()
           .regex(/^[a-zA-Z][a-z]{2,}$/),
@@ -215,7 +169,6 @@ const Accounts = {
         password: Joi.string()
           .required()
           .regex(/^[A-Za-z0-9]\w{8,}$/),
->>>>>>> dev
       },
       options: {
         abortEarly: false,
@@ -235,21 +188,11 @@ const Accounts = {
         const userEdit = request.payload;
         const id = request.auth.credentials.id;
         const user = await User.findById(id);
-<<<<<<< HEAD
-        // Hashing password using bcrypt module
-        const hash = await bcrypt.hash(payload.password, saltRounds);
-        // Update the currents users details with the new details entered
-        user.firstName = userEdit.firstName;
-        user.lastName = userEdit.lastName;
-        user.email = userEdit.email;
-        user.password = hash;
-=======
         // Update the currents users details with the new details entered
         user.firstName = Sanitizer.sanitizeContent(userEdit.firstName);
         user.lastName = Sanitizer.sanitizeContent(userEdit.lastName);
         user.email = Sanitizer.sanitizeContent(userEdit.email);
         user.password = Sanitizer.sanitizeContent(userEdit.password);
->>>>>>> dev
         await user.save();
         return h.redirect("/settings");
       } catch (err) {
