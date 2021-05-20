@@ -32,7 +32,8 @@ suite("User API tests", function () {
   });
 
   test("Find one user", async function () {
-    let u1 = await stadiumsService.createUser(newUser);
+    let response = await stadiumsService.createUser(newUser);
+    let u1 = response.user;
     let u2 = await stadiumsService.findOneUser(u1._id);
     assert.deepEqual(u1, u2);
   });
@@ -46,14 +47,16 @@ suite("User API tests", function () {
   });
 
   test("Login a user", async function () {
-    let returnedUser = await stadiumsService.createUser(newUser);
-    const response = await stadiumsService.authenticate(returnedUser);
-    assert(response.success);
-    assert.isDefined(response.token);
+    let response = await stadiumsService.createUser(newUser);
+    let returnedUser = response.user;
+    const authResponse = await stadiumsService.authenticate(returnedUser);
+    assert(authResponse.success);
+    assert.isDefined(authResponse.token);
   });
 
   test("Sign up a user", async function () {
-    const returnedUser = await stadiumsService.createUser(newUser);
+    const response = await stadiumsService.createUser(newUser);
+    let returnedUser = response.user;
     assert(returnedUser.firstName, newUser.firstName), "returnedUser firstName must match newUser firstName";
     assert(returnedUser.lastName, newUser.lastName), "returnedUser lastName must match newUser lastName";
     assert(returnedUser.email, newUser.email), "returnedUser email must match newUser email";
@@ -62,18 +65,20 @@ suite("User API tests", function () {
   });
 
   test("Edit a user", async function () {
-    let user1 = await stadiumsService.createUser(newUser);
-    assert(user1._id != null);
-    await stadiumsService.editUser(user1._id, users[0]);
-    let editedUser = await stadiumsService.findOneUser(user1._id);
+    let response = await stadiumsService.createUser(newUser);
+    let returnedUser = response.user;
+    assert(returnedUser._id != null);
+    await stadiumsService.editUser(returnedUser._id, users[0]);
+    let editedUser = await stadiumsService.findOneUser(returnedUser._id);
     assert(editedUser.firstName == users[0].firstName);
   });
 
   test("Delete a user", async function () {
-    let u = await stadiumsService.createUser(newUser);
-    assert(u._id != null);
-    await stadiumsService.deleteOneUser(u._id);
-    u = await stadiumsService.findOneUser(u._id);
-    assert(u == null);
+    let response = await stadiumsService.createUser(newUser);
+    let returnedUser = response.user;
+    assert(returnedUser._id != null);
+    await stadiumsService.deleteOneUser(returnedUser._id);
+    returnedUser = await stadiumsService.findOneUser(returnedUser._id);
+    assert(returnedUser == null);
   });
 });

@@ -50,7 +50,7 @@ const Users = {
           return Boom.unauthorized("Invalid password");
         } else {
           const token = utils.createToken(user);
-          return h.response({ success: true, token: token }).code(201);
+          return h.response({ user: user, success: true, token: token }).code(201);
         }
       } catch (err) {
         return Boom.notFound("internal db failure");
@@ -78,7 +78,8 @@ const Users = {
         });
         const savedUser = await newUser.save();
         if (savedUser) {
-          return h.response(savedUser).code(201);
+          const token = utils.createToken(savedUser);
+          return h.response({ user: savedUser, success: true, token: token }).code(201);
         }
         return Boom.badImplementation("Error creating user");
       } catch (err) {

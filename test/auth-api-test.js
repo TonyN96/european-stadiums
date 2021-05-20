@@ -24,10 +24,11 @@ suite("Authentication API tests", function () {
   });
 
   test("Verify token", async function () {
-    const returnedUser = await stadiumsService.createUser(newUser);
-    const response = await stadiumsService.authenticate(newUser);
+    const response1 = await stadiumsService.createUser(newUser);
+    let returnedUser = response1.user;
+    const response2 = await stadiumsService.authenticate(newUser);
 
-    const userInfo = utils.decodeToken(response.token);
+    const userInfo = utils.decodeToken(response2.token);
     assert.equal(userInfo.email, returnedUser.email);
     assert.equal(userInfo.userId, returnedUser._id);
   });
