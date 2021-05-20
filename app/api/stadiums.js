@@ -4,12 +4,13 @@ const Stadium = require("../models/stadium");
 const Boom = require("@hapi/boom");
 const User = require("../models/user");
 const env = require("dotenv");
-//Configure environment variables
 env.config();
 
 const Stadiums = {
   findOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       try {
         const stadium = await Stadium.findOne({ _id: request.params.id });
@@ -24,7 +25,9 @@ const Stadiums = {
   },
 
   findAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const stadiums = await Stadium.find();
       return stadiums;
@@ -32,7 +35,9 @@ const Stadiums = {
   },
 
   findByCountry: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const allStadiums = await Stadium.find();
       const country = request.params.country;
@@ -47,7 +52,9 @@ const Stadiums = {
   },
 
   add: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const data = request.payload;
       const newStadium = new Stadium({
@@ -70,7 +77,9 @@ const Stadiums = {
   },
 
   edit: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const stadiumId = request.params.id;
       const data = request.payload;
@@ -94,7 +103,9 @@ const Stadiums = {
   },
 
   deleteOne: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       const stadium = await Stadium.deleteOne({ _id: request.params.id });
       if (stadium) {
@@ -105,7 +116,9 @@ const Stadiums = {
   },
 
   deleteAll: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       await Stadium.deleteMany({});
       return { success: true };
@@ -113,7 +126,9 @@ const Stadiums = {
   },
 
   getMapsKey: {
-    auth: false,
+    auth: {
+      strategy: "jwt",
+    },
     handler: async function (request, h) {
       let mapsKey = process.env.mapsKey;
       return mapsKey;

@@ -5,7 +5,6 @@ const StadiumsService = require("./stadiums-service");
 const fixtures = require("./fixtures.json");
 const _ = require("lodash");
 const env = require("dotenv");
-//Configure environment variables
 env.config();
 
 suite("Stadium API tests", function () {
@@ -15,18 +14,27 @@ suite("Stadium API tests", function () {
 
   const stadiumsService = new StadiumsService(fixtures.stadiumsApp);
 
+  suiteSetup(async function () {
+    await stadiumsService.deleteAllUsers();
+    const returnedUser = await stadiumsService.createUser(newUser);
+    const response = await stadiumsService.authenticate(newUser);
+  });
+
+  suiteTeardown(async function () {
+    await stadiumsService.deleteAllUsers();
+    await stadiumsService.clearAuth();
+  });
+
   setup(async function () {
     await stadiumsService.deleteAllStadiums();
-    await stadiumsService.deleteAllUsers();
   });
 
   teardown(async function () {
     await stadiumsService.deleteAllStadiums();
-    await stadiumsService.deleteAllUsers();
   });
 
   test("Find one stadium", async function () {
-    let user = await stadiumsService.signupUser(newUser);
+    let user = await stadiumsService.createUser(newUser);
     newStadium.addedBy = user;
     let stadium1 = await stadiumsService.addStadium(newStadium);
     assert(stadium1 != null);
@@ -43,7 +51,7 @@ suite("Stadium API tests", function () {
   });
 
   test("Find stadium by country", async function () {
-    let user = await stadiumsService.signupUser(newUser);
+    let user = await stadiumsService.createUser(newUser);
     newStadium.addedBy = user;
     let stadium = await stadiumsService.addStadium(newStadium);
     let country = stadium.country;
@@ -52,7 +60,7 @@ suite("Stadium API tests", function () {
   });
 
   test("Add a stadium", async function () {
-    let user = await stadiumsService.signupUser(newUser);
+    let user = await stadiumsService.createUser(newUser);
     newStadium.addedBy = user;
     let stadium = await stadiumsService.addStadium(newStadium);
     assert(stadium != null);
@@ -62,7 +70,7 @@ suite("Stadium API tests", function () {
   });
 
   test("Edit a stadium", async function () {
-    let user = await stadiumsService.signupUser(newUser);
+    let user = await stadiumsService.createUser(newUser);
     newStadium.addedBy = user;
     let stadium = await stadiumsService.addStadium(newStadium);
     assert(stadium._id != null);

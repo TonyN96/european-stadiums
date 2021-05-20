@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Boom = require("@hapi/boom");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const utils = require("./utils.js");
 
 const Users = {
   findOne: {
@@ -38,28 +39,26 @@ const Users = {
     },
   },
 
-  login: {
+  authenticate: {
     auth: false,
     handler: async function (request, h) {
-      const { email, password } = request.payload;
       try {
-        let user = await User.findByEmail(email);
-        // If the email entered is not registered, inform the user of this with a Boom message
+        const user = await User.findByEmail(request.payload.email);
         if (!user) {
           return Boom.unauthorized("User not found");
+        } else if (user.comparePassword(request.payload.password) == null) {
+          return Boom.unauthorized("Invalid password");
+        } else {
+          const token = utils.createToken(user);
+          return h.response({ success: true, token: token }).code(201);
         }
-        // Ensure the password entered matches the password in the db
-        user.comparePassword(password);
-        // Set the user's id as the cookie
-        request.cookieAuth.set({ id: user.id });
-        return user;
       } catch (err) {
         return Boom.notFound("internal db failure");
       }
     },
   },
 
-  signup: {
+  create: {
     auth: false,
     handler: async function (request, h) {
       try {
@@ -77,9 +76,9 @@ const Users = {
           password: hash,
           admin: payload.admin,
         });
-        user = await newUser.save();
-        if (user) {
-          return h.response(user).code(201);
+        const savedUser = await newUser.save();
+        if (savedUser) {
+          return h.response(savedUser).code(201);
         }
         return Boom.badImplementation("Error creating user");
       } catch (err) {
@@ -120,6 +119,14 @@ const Users = {
         return { success: true };
       }
       return Boom.notFound("id not found");
+    },
+  },
+
+  deleteAll: {
+    auth: false,
+    handler: async function (request, h) {
+      await User.deleteMany({});
+      return { success: true };
     },
   },
 };
