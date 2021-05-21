@@ -17,7 +17,6 @@ if (result.error) {
 
 const server = Hapi.server({
   port: process.env.PORT || 4000,
-  routes: { cors: true },
 });
 
 const credentials = {
