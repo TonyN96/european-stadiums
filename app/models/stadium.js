@@ -10,12 +10,14 @@ const stadiumSchema = new Schema({
   capacity: Number,
   built: Number,
   club: String,
+  rating: Number,
+  reviews: Array,
   addedBy: {
     type: Schema.Types.ObjectId,
-    ref: 'User',
+    ref: "User",
   },
   imageUrl: String,
-  coords: Array
+  coords: Array,
 });
 
 module.exports = Mongoose.model("Stadium", stadiumSchema);

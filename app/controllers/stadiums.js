@@ -3,9 +3,11 @@
 const Joi = require("@hapi/joi");
 const Stadium = require("../models/stadium");
 const User = require("../models/user");
+const Review = require("../models/review");
 const ImageStore = require("../utils/image-store");
 const Sanitizer = require("../utils/sanitizer");
 const env = require("dotenv");
+const { updateOne } = require("../models/stadium");
 //Configure environment variables
 env.config();
 
@@ -30,6 +32,28 @@ const Stadiums = {
         let franceStadiums = [];
         // Array which puts stadium in respective array based on country
         for (let x = 0; x < stadiums.length; x++) {
+          stadiums[x].reviews = await Review.find({ stadium: stadiums[x]._id })
+            .populate("stadium")
+            .populate("reviewedBy")
+            .lean();
+          let totalRatings = 0;
+          for (let z = 0; z < stadiums[x].reviews.length; z++) {
+            totalRatings += stadiums[x].reviews[z].rating;
+            let reviewDate = new Date(stadiums[x].reviews[z].date);
+            let reviewDateStr =
+              ("0" + reviewDate.getDate()).slice(-2) +
+              "-" +
+              ("0" + (reviewDate.getMonth() + 1)).slice(-2) +
+              "-" +
+              reviewDate.getFullYear();
+            stadiums[x].reviews[z].date = reviewDateStr;
+          }
+          if (totalRatings != 0) {
+            let newRating = totalRatings / stadiums[x].reviews.length;
+            stadiums[x].rating = newRating.toFixed(2);
+          } else {
+            stadiums[x].rating = null;
+          }
           if (stadiums[x].country == "England") {
             englandStadiums.push(stadiums[x]);
           } else if (stadiums[x].country == "France") {
@@ -241,6 +265,34 @@ const Stadiums = {
       output: "data",
       maxBytes: 209715200,
       parse: true,
+    },
+  },
+
+  addReview: {
+    handler: async function (request, h) {
+      try {
+        const userId = request.auth.credentials.id;
+        const stadiumId = request.params.id;
+        const data = request.payload;
+        let sanitizedRating = Sanitizer.sanitizeContent(data.rating);
+        sanitizedRating = parseInt(sanitizedRating);
+        await Stadium.updateOne({ _id: stadiumId }, { $push: { rating: sanitizedRating } });
+        const newReview = new Review({
+          title: Sanitizer.sanitizeContent(data.title),
+          review: Sanitizer.sanitizeContent(data.review),
+          rating: sanitizedRating,
+          stadium: stadiumId,
+          reviewedBy: userId,
+          date: Date.now(),
+        });
+        await newReview.save();
+        return h.redirect("/home");
+      } catch (err) {
+        return h.view("add-stadium", {
+          title: "European Stadiums | Error adding stadium..",
+          errors: [{ message: err.message }],
+        });
+      }
     },
   },
 };
