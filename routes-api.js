@@ -1,5 +1,6 @@
 const Users = require("./app/api/users");
 const Stadiums = require("./app/api/stadiums");
+const Reviews = require("./app/api/reviews");
 
 module.exports = [
   /* User API routes */
@@ -16,9 +17,14 @@ module.exports = [
   { method: "GET", path: "/api/stadiums/{id}", config: Stadiums.findOne },
   { method: "GET", path: "/api/stadiums", config: Stadiums.findAll },
   { method: "GET", path: "/api/stadiums/country/{country}", config: Stadiums.findByCountry },
+  { method: "GET", path: "/api/stadiums/rating/{id}", config: Stadiums.getStadiumRating },
   { method: "GET", path: "/api/stadiums/mapsKey", config: Stadiums.getMapsKey },
   { method: "POST", path: "/api/stadiums", config: Stadiums.add },
   { method: "POST", path: "/api/stadiums/{id}", config: Stadiums.edit },
   { method: "DELETE", path: "/api/stadiums/{id}", config: Stadiums.deleteOne },
   { method: "DELETE", path: "/api/stadiums", config: Stadiums.deleteAll },
+
+  /* Reviews API routes */
+  { method: "GET", path: "/api/reviews", config: Reviews.findAll },
+  { method: "GET", path: "/api/reviews/{id}", config: Reviews.findByStadium },
 ];

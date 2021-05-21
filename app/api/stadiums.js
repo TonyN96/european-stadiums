@@ -3,6 +3,7 @@
 const Stadium = require("../models/stadium");
 const Boom = require("@hapi/boom");
 const User = require("../models/user");
+const Review = require("../models/review");
 const env = require("dotenv");
 env.config();
 
@@ -39,7 +40,7 @@ const Stadiums = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      const allStadiums = await Stadium.find();
+      const allStadiums = await Stadium.find().populate("addedBy");
       const country = request.params.country;
       let stadiums = [];
       for (let x = 0; x < allStadiums.length; x++) {
@@ -122,6 +123,28 @@ const Stadiums = {
     handler: async function (request, h) {
       await Stadium.deleteMany({});
       return { success: true };
+    },
+  },
+
+  getStadiumRating: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      let stadiumReviews = await Review.find({ stadium: request.params.id })
+        .populate("stadium")
+        .populate("reviewedBy")
+        .lean();
+      let totalRatings = 0;
+      for (let x = 0; x < stadiumReviews.length; x++) {
+        totalRatings += stadiumReviews[x].rating;
+      }
+      if (totalRatings != 0) {
+        let rating = totalRatings / stadiumReviews.length;
+        return rating.toFixed(2);
+      } else {
+        return null;
+      }
     },
   },
 
