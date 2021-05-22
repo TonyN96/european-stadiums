@@ -17,7 +17,11 @@ These leagues are based in:
 - Add stadiums
 - Edit existing stadiums
 - Remove existing stadiums
+- View/write reviews on Stadiums
 - Edit/delete user account
+
+The app also features an extensive API for accessing application services.
+The [Svelte version](https://github.com/TonyN96/european-stadiums-svelte) of this application incorporates use of this API.
 
 ## Technologies
 
@@ -29,6 +33,8 @@ These leagues are based in:
 - [mais-mongoose-seeder](https://www.npmjs.com/package/mais-mongoose-seeder)
 - [Cloudinary](https://cloudinary.com/)
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
+- [Leaflet.js](https://leafletjs.com/)
+- [JsonWebToken](https://github.com/auth0/node-jsonwebtoken)
 
 ## Usage
 
