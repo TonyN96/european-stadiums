@@ -27,6 +27,15 @@ class StadiumsService {
     }
   }
 
+  async findUserNameById(userId) {
+    try {
+        const response = await axios.get(this.baseUrl + "/api/users/name/" + userId);
+        return response.data;
+    } catch (error) {
+        return false;
+    }
+  }
+
   async createUser(newUser) {
     try {
       const response = await axios.post(this.baseUrl + "/api/users", newUser);
@@ -142,6 +151,15 @@ class StadiumsService {
     }
   }
 
+  async getStadiumRating(stadiumId) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/stadiums/rating/" + stadiumId);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
   async getMapsKey() {
     try {
       const response = await axios.get(this.baseUrl + "/api/stadiums/mapsKey");
@@ -150,6 +168,45 @@ class StadiumsService {
       return null;
     }
   }
+
+  /* Review services */
+
+  async findAllReviews() {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/reviews");
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async findReviewsByStadium(stadiumId) {
+    try {
+      const response = await axios.get(this.baseUrl + "/api/reviews/" + stadiumId);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async addReview(review) {
+    try {
+      const response = await axios.post(this.baseUrl + "/api/reviews", review);
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  async deleteAllReviews() {
+    try {
+      const response = await axios.delete(this.baseUrl + "/api/reviews");
+      return response.data;
+    } catch (e) {
+      return null;
+    }
+  }
+
 }
 
 module.exports = StadiumsService;

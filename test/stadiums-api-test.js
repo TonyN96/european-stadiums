@@ -11,13 +11,14 @@ suite("Stadium API tests", function () {
   let stadiums = fixtures.stadiums;
   let newStadium = fixtures.newStadium;
   let newUser = fixtures.newUser;
+  let newReview = fixtures.newReview;
 
   const stadiumsService = new StadiumsService(fixtures.stadiumsApp);
 
   suiteSetup(async function () {
     await stadiumsService.deleteAllUsers();
-    const returnedUser = await stadiumsService.createUser(newUser);
-    const response = await stadiumsService.authenticate(newUser);
+    await stadiumsService.createUser(newUser);
+    await stadiumsService.authenticate(newUser);
   });
 
   suiteTeardown(async function () {
@@ -98,6 +99,18 @@ suite("Stadium API tests", function () {
     const d2 = await stadiumsService.findAllStadiums();
     assert.equal(d2.length, 0);
   });
+
+  test("Get stadium rating", async function() {
+    let user = await stadiumsService.createUser(newUser);
+    let stadium = await stadiumsService.addStadium(newStadium);
+    newReview.reviewedBy = user;
+    newReview.stadium = stadium;
+    let review = await stadiumsService.addReview(newReview);
+    assert.isDefined(review._id);
+    let rating = await stadiumsService.getStadiumRating(stadium._id);
+    assert.isNumber(rating);
+    assert.equal(rating, review.rating);
+  })
 
   test("Get mapsKey", async function () {
     let mapsKey = await stadiumsService.getMapsKey();

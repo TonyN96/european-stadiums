@@ -31,7 +31,9 @@
       "capacity": 74140,
       "built": 1909,
       "club": "Manchester United FC",
+      "rating": 0,
       "coords": [53.46318660696824, -2.2913722801175074],
+      "reviews": [],
       "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615812356/1920px-Manchester_United_Panorama__288051523746_29_it6uuz.jpg"
     },
     {
@@ -41,7 +43,9 @@
       "capacity": 52305,
       "built": 1892,
       "club": "Newcastle United FC",
+      "rating": 0,
       "coords": [54.9755845212852, -1.6216664207841147],
+      "reviews": [],
       "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615816720/11833247-Activity-4_za4ehi.jpg"
     },
     {
@@ -51,7 +55,9 @@
       "capacity": 53394,
       "built": 1884,
       "club": "Liverpool FC",
+      "rating": 0,
       "coords": [53.4308713149566, -2.960845728877089],
+      "reviews": [],
       "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615812716/1280px-Panorama_of_Anfield_with_new_main_stand__2829676137824_29_mdooii.jpg"
     }
   ],
@@ -62,8 +68,38 @@
     "capacity": 41387,
     "built": 1876,
     "club": "Chelsea FC",
+    "rating": 0,
     "addedBy": {},
     "coords": [51.48172309259984, -0.1909243105598856],
+    "reviews": [],
     "imageUrl": "https://res.cloudinary.com/dczqccpne/image/upload/v1615312892/stamford_bridge_kdaid1.jpg"
+  },
+  "reviews": [
+    {
+      "title": "Brilliant",
+      "rating": 5,
+      "review": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatem molestiae aliquam? Assumenda voluptatum voluptatem beatae reiciendis nisi ullam aliquam labore consectetur dolorum, dolor possimus veniam, voluptate ut dolore. Eligendi?",
+      "date": "2020-08-12"
+    },
+    {
+      "title": "Only ok",
+      "rating": 3,
+      "review": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatem molestiae aliquam? Assumenda voluptatum voluptatem beatae reiciendis nisi ullam aliquam labore consectetur dolorum, dolor possimus veniam, voluptate ut dolore. Eligendi?!",
+      "date": "2019-02-26"
+    },
+    {
+      "title": "Fantastic",
+      "rating": 4,
+      "review": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatem molestiae aliquam? Assumenda voluptatum voluptatem beatae reiciendis nisi ullam aliquam labore consectetur dolorum, dolor possimus veniam, voluptate ut dolore. Eligendi?",
+      "date": "2017-03-08"
+    }
+  ],
+  "newReview": {
+    "title": "Great",
+    "stadium": {},
+    "reviewedBy": {},
+    "rating": 4,
+    "review": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia voluptatem molestiae aliquam? Assumenda voluptatum voluptatem beatae reiciendis nisi ullam aliquam labore consectetur dolorum, dolor possimus veniam, voluptate ut dolore. Eligendi?",
+    "date": "2017-03-08"
   }
 }

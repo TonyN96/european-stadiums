@@ -27,4 +27,6 @@ module.exports = [
   /* Reviews API routes */
   { method: "GET", path: "/api/reviews", config: Reviews.findAll },
   { method: "GET", path: "/api/reviews/{id}", config: Reviews.findByStadium },
+  { method: "POST", path: "/api/reviews", config: Reviews.addReview },
+  { method: "DELETE", path: "/api/reviews", config: Reviews.deleteAll },
 ];

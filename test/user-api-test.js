@@ -46,7 +46,15 @@ suite("User API tests", function () {
     assert.equal(allUsers.length, users.length);
   });
 
-  test("Login a user", async function () {
+  test("Find name by id", async function() {
+    let response = await stadiumsService.createUser(newUser);
+    let returnedUser = response.user;
+    let name = await stadiumsService.findUserNameById(returnedUser._id);
+    assert.isDefined(name);
+    assert.equal(name, returnedUser.firstName + " " + returnedUser.lastName);
+  })
+
+  test("Authenticate a user", async function () {
     let response = await stadiumsService.createUser(newUser);
     let returnedUser = response.user;
     const authResponse = await stadiumsService.authenticate(returnedUser);
@@ -54,7 +62,7 @@ suite("User API tests", function () {
     assert.isDefined(authResponse.token);
   });
 
-  test("Sign up a user", async function () {
+  test("Create a user", async function () {
     const response = await stadiumsService.createUser(newUser);
     let returnedUser = response.user;
     assert(returnedUser.firstName, newUser.firstName), "returnedUser firstName must match newUser firstName";
@@ -81,4 +89,15 @@ suite("User API tests", function () {
     returnedUser = await stadiumsService.findOneUser(returnedUser._id);
     assert(returnedUser == null);
   });
+
+  test("Delete all users", async function() {
+    for (var i = 0; i < users.length; i++) {
+      await stadiumsService.createUser(users[i]);
+    }
+    const d1 = await stadiumsService.findAllUsers();
+    assert.equal(d1.length, users.length);
+    await stadiumsService.deleteAllUsers();
+    const d2 = await stadiumsService.findAllUsers();
+    assert.equal(d2.length, 0);
+  })
 });
