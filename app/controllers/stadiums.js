@@ -50,7 +50,7 @@ const Stadiums = {
           }
           if (totalRatings != 0) {
             let newRating = totalRatings / stadiums[x].reviews.length;
-            stadiums[x].rating = newRating.toFixed(2);
+            stadiums[x].rating = Math.round(newRating * 100) / 100;
           } else {
             stadiums[x].rating = null;
           }
@@ -276,7 +276,6 @@ const Stadiums = {
         const data = request.payload;
         let sanitizedRating = Sanitizer.sanitizeContent(data.rating);
         sanitizedRating = parseInt(sanitizedRating);
-        await Stadium.updateOne({ _id: stadiumId }, { $push: { rating: sanitizedRating } });
         const newReview = new Review({
           title: Sanitizer.sanitizeContent(data.title),
           review: Sanitizer.sanitizeContent(data.review),
