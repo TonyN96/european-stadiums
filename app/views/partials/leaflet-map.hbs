@@ -1,0 +1,32 @@
+<div id="europeMap" style="width: 100%; height: 400px;"></div>
+
+<script>
+    function initMap(){
+        let europeMap = L.map('europeMap').setView([48.630117, 5.607379], 4);
+
+        var Toner_Tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+            minZoom: 0,
+            maxZoom: 20,
+        });
+
+        const MarkerPopup = L.popup().setContent("I'm clicked");
+        let stadiumMarker;
+
+        var stadiumIcon = L.icon({
+            iconUrl: '/football-icon.png',
+            iconSize: [25, 25], 
+            iconAnchor: [5, 5], 
+            popupAnchor: [0, 0] 
+        });
+
+        Toner_Tile.addTo(europeMap);
+
+        {{#each allStadiums}}
+            stadiumMarker = L.popup().setContent("{{name}}<br>{{city}}, {{country}}<br><br><img src='{{imageUrl}}'>");
+            locationMarker = L.marker([{{coords.[0]}},{{coords.[1]}}], {icon: stadiumIcon}).bindPopup(stadiumMarker).addTo(europeMap);
+        {{/each}} 
+    }
+
+    initMap();
+</script>

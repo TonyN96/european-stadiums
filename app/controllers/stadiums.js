@@ -72,6 +72,7 @@ const Stadiums = {
           mapsKey: mapsKey,
           usersCount: usersCount,
           stadiumsCount: stadiumsCount,
+          allStadiums: stadiums,
           spainStadiums: spainStadiums,
           germanyStadiums: germanyStadiums,
           italyStadiums: italyStadiums,

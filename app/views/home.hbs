@@ -12,7 +12,6 @@
 
                 <p class="uk-inline uk-text-muted uk-margin-right uk-margin-remove-top">Stadiums: {{stadiumsCount}}</p>
                 <p class="uk-inline uk-text-muted uk-margin-left uk-margin-remove-top">Users: {{usersCount}}</p>
-                
 
                 <div class="uk-width-expand uk-margin-large-bottom uk-margin-small-top uk-text-center">
                     <a href="add-stadium">
@@ -21,6 +20,8 @@
                 </div>
 
             </div>
+
+            {{> leaflet-map }}
 
             {{> list-stadiums stadiums=englandStadiums title="England"}}
             {{> list-stadiums stadiums=franceStadiums title="France"}}
@@ -31,4 +32,6 @@
         </div>
     </div>
 </div>
+
+
 {{> error }}
