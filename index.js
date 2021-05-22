@@ -9,7 +9,7 @@ const Cookie = require("@hapi/cookie");
 const env = require("dotenv");
 const utils = require("./app/api/utils.js");
 
-const result = env.config();
+const result = env.config({silent: true});
 if (result.error) {
   console.log(result.error.message);
   process.exit(1);
