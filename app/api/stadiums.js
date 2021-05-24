@@ -30,7 +30,7 @@ const Stadiums = {
       strategy: "jwt",
     },
     handler: async function (request, h) {
-      const stadiums = await Stadium.find();
+      const stadiums = await Stadium.find().populate("addedBy").lean();
       return stadiums;
     },
   },

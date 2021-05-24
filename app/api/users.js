@@ -103,7 +103,8 @@ const Users = {
         user.admin = data.admin;
         const result = await user.save();
         if (result) {
-          return h.response(user).code(201);
+          const token = utils.createToken(user);
+          return h.response({ user: user, success: true, token: token }).code(201);
         }
         return Boom.badImplementation("Error editing user");
       } catch (err) {
