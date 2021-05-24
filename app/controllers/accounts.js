@@ -141,8 +141,10 @@ const Accounts = {
         // Find the current user by the cookie and pass into the settings view
         const id = request.auth.credentials.id;
         const user = await User.findById(id).lean();
+        const username = user.firstName + " " + user.lastName;
         return h.view("settings", {
           title: "European Stadiums | Settings",
+          username: username,
           user: user,
         });
       } catch (err) {
@@ -237,8 +239,12 @@ const Accounts = {
       try {
         // Get all users registered to the app and pass into view
         const users = await User.find().lean();
+        const userId = request.auth.credentials.id;
+        const user = await User.findById(userId);
+        const username = user.firstName + " " + user.lastName;
         return h.view("admin-dashboard", {
           title: "European Stadiums | Admin Dashboard",
+          username: username,
           users: users,
         });
       } catch (err) {

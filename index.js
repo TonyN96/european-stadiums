@@ -59,6 +59,14 @@ async function init() {
     redirectTo: "/",
   });
 
+  Handlebars.registerHelper('ratingIcon', function (rating) {
+    if (rating >= 50) {
+      return true;
+    } else {
+      return false;
+    }
+  })
+
   server.auth.strategy("jwt", "jwt", {
     key: "secretpasswordnotrevealedtoanyone",
     validate: utils.validate,
