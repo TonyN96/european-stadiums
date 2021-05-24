@@ -6,8 +6,8 @@ const User = require("../models/user");
 const Review = require("../models/review");
 const ImageStore = require("../utils/image-store");
 const Sanitizer = require("../utils/sanitizer");
+const UtilityFunctions = require("../utils/utility-functions");
 const env = require("dotenv");
-const { updateOne } = require("../models/stadium");
 //Configure environment variables
 env.config();
 
@@ -20,17 +20,9 @@ const Stadiums = {
         const stadiums = await Stadium.find().populate("addedBy").lean();
         // Get all users
         const users = await User.find().lean();
-        // Google Maps API key for displaying the stadium map lightbox
-        const mapsKey = process.env.mapsKey;
-        const stadiumsCount = stadiums.length;
-        const usersCount = users.length;
-        // Arrays for categorising each stadiums based on country
-        let spainStadiums = [];
-        let germanyStadiums = [];
-        let italyStadiums = [];
-        let englandStadiums = [];
-        let franceStadiums = [];
-        // Array which puts stadium in respective array based on country
+        // Categorising stadiums using utility function
+        const categorisedStadiums = UtilityFunctions.categoriseStadiums(stadiums);
+        // For loop for populating stadium reviews, formatting review dates and calculating ratings
         for (let x = 0; x < stadiums.length; x++) {
           stadiums[x].reviews = await Review.find({ stadium: stadiums[x]._id })
             .populate("stadium")
@@ -40,13 +32,7 @@ const Stadiums = {
           for (let z = 0; z < stadiums[x].reviews.length; z++) {
             totalRatings += stadiums[x].reviews[z].rating;
             let reviewDate = new Date(stadiums[x].reviews[z].date);
-            let reviewDateStr =
-              ("0" + reviewDate.getDate()).slice(-2) +
-              "-" +
-              ("0" + (reviewDate.getMonth() + 1)).slice(-2) +
-              "-" +
-              reviewDate.getFullYear();
-            stadiums[x].reviews[z].date = reviewDateStr;
+            stadiums[x].reviews[z].date = UtilityFunctions.dateFormatter(reviewDate);
           }
           if (totalRatings != 0) {
             let newRating = totalRatings / stadiums[x].reviews.length;
@@ -54,30 +40,15 @@ const Stadiums = {
           } else {
             stadiums[x].rating = null;
           }
-          if (stadiums[x].country == "England") {
-            englandStadiums.push(stadiums[x]);
-          } else if (stadiums[x].country == "France") {
-            franceStadiums.push(stadiums[x]);
-          } else if (stadiums[x].country == "Germany") {
-            germanyStadiums.push(stadiums[x]);
-          } else if (stadiums[x].country == "Italy") {
-            italyStadiums.push(stadiums[x]);
-          } else if (stadiums[x].country == "Spain") {
-            spainStadiums.push(stadiums[x]);
-          }
         }
         // Rendering home page with the object containing required view data
         return h.view("home", {
           title: "European Stadiums | Home",
-          mapsKey: mapsKey,
-          usersCount: usersCount,
-          stadiumsCount: stadiumsCount,
+          mapsKey: process.env.mapsKey,
+          usersCount: users.length,
+          stadiumsCount: stadiums.length,
           allStadiums: stadiums,
-          spainStadiums: spainStadiums,
-          germanyStadiums: germanyStadiums,
-          italyStadiums: italyStadiums,
-          englandStadiums: englandStadiums,
-          franceStadiums: franceStadiums,
+          categorisedStadiums: categorisedStadiums,
         });
       } catch (err) {
         return h.view("home", { errors: [{ message: err }] });

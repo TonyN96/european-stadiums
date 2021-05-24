@@ -1,117 +1,116 @@
-<div class="uk-flex uk-flex-between uk-flex-middle uk-margin-medium">
-    <h2 class="uk-text-medium uk-text-left uk-margin-remove"><span>{{title}}</span></h2>
-    <p class="uk-text-muted uk-text-right">Count: {{stadiums.length}}</p>
-</div>
-<div class="uk-child-width-expand uk-grid-width-1-3 uk-margin-large-bottom" uk-grid>
-    {{#each stadiums }}
+{{#each categorisedStadiums }}
+    <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-medium">
+        <h2 class="uk-text-medium uk-text-left uk-margin-remove"><span>{{this.[0].country}}</span></h2>
+        <p class="uk-text-muted uk-text-right">Count: {{this.length}}</p>
+    </div>
+    <div class="uk-child-width-expand uk-grid-width-1-3 uk-margin-large-bottom" uk-grid>
+        {{#each this }}
+        <div class="uk-width-1-4">
+            <h4 class="uk-title uk-text-medium">{{name}}</h4>
 
-    <div class="uk-width-1-4">
-        <h4 class="uk-title uk-text-medium">{{name}}</h4>
+            <div uk-lightbox>
+                <a href="{{imageUrl}}" data-caption="{{name}}, {{city}}">
+                    <div class="stadium-thumbnail" style="background-image: url('{{imageUrl}}');"></div>
+                </a>
+            </div>
 
-        <div uk-lightbox>
-            <a href="{{imageUrl}}" data-caption="{{name}}, {{city}}">
-                <div class="stadium-thumbnail" style="background-image: url('{{imageUrl}}');"></div>
-            </a>
-        </div>
+            <div class="uk-margin uk-width-1-1 uk-text-left uk-text-small">
+                City: {{city}} <br>
+                Capacity: {{capacity}} <br>
+                Built: {{built}} <br>
+                Club: {{club}} <br>
+                Rating: {{#if rating}}{{rating}}/5{{else}}None yet{{/if}}<br>
+            </div>
 
-        <div class="uk-margin uk-width-1-1 uk-text-left uk-text-small">
-            City: {{city}} <br>
-            Capacity: {{capacity}} <br>
-            Built: {{built}} <br>
-            Club: {{club}} <br>
-            Rating: {{#if rating}}{{rating}}/5{{else}}None yet{{/if}}<br>
-        </div>
+            <div class="uk-width-expand uk-flex uk-flex-between uk-flex-bottom">
 
-        <div class="uk-width-expand uk-flex uk-flex-between uk-flex-bottom">
+                <div class="uk-text-meta">Added by: {{addedBy.firstName}} {{addedBy.lastName}}</div>
 
-            <div class="uk-text-meta">Added by: {{addedBy.firstName}} {{addedBy.lastName}}</div>
+                <div>
 
-            <div>
+                    <div class="uk-inline" uk-toggle="target: #reviews-modal-{{_id}}"
+                        style="cursor: pointer; vertical-align: baseline;"><i class="fas fa-file"
+                            style="color: rgba(230, 176, 28, 0.829); font-size: 24px;" title="Reviews" uk-tooltip></i></div>
 
-                <div class="uk-inline" uk-toggle="target: #reviews-modal-{{_id}}"
-                    style="cursor: pointer; vertical-align: baseline;"><i class="fas fa-file"
-                        style="color: rgba(230, 176, 28, 0.829); font-size: 24px;" title="Reviews" uk-tooltip></i></div>
+                    <div class="uk-inline" style="vertical-align: baseline;" uk-lightbox>
+                        <a href="https://www.google.com/maps/embed/v1/place?key={{../mapsKey}}&q={{coords.[0]}},{{coords.[1]}}&maptype=satellite"
+                            data-caption="{{name}}, {{city}}" data-type="iframe"><i class="fas fa-map-marker-alt"
+                                style="color: rgba(49, 216, 57, 0.829); font-size: 24px;" title="View on map"
+                                uk-tooltip></i></a>
+                    </div>
 
-                <div class="uk-inline" style="vertical-align: baseline;" uk-lightbox>
-                    <a href="https://www.google.com/maps/embed/v1/place?key={{../mapsKey}}&q={{coords.[0]}},{{coords.[1]}}&maptype=satellite"
-                        data-caption="{{name}}, {{city}}" data-type="iframe"><i class="fas fa-map-marker-alt"
-                            style="color: rgba(49, 216, 57, 0.829); font-size: 24px;" title="View on map"
-                            uk-tooltip></i></a>
+                    <div class="uk-inline" uk-toggle="target: #delete-modal-{{_id}}"
+                        style="cursor: pointer; vertical-align: baseline;"><i class="fas fa-times-circle"
+                            style="color: rgba(235, 38, 38, 0.829); font-size: 24px;" title="Delete" uk-tooltip></i></div>
+                    <a href="/edit-stadium/{{_id}}"><i class="fas fa-edit"
+                            style="color: rgba(50, 137, 219, 0.829); font-size: 24px;" title="Edit" uk-tooltip></i></a>
+
                 </div>
-
-                <div class="uk-inline" uk-toggle="target: #delete-modal-{{_id}}"
-                    style="cursor: pointer; vertical-align: baseline;"><i class="fas fa-times-circle"
-                        style="color: rgba(235, 38, 38, 0.829); font-size: 24px;" title="Delete" uk-tooltip></i></div>
-                <a href="/edit-stadium/{{_id}}"><i class="fas fa-edit"
-                        style="color: rgba(50, 137, 219, 0.829); font-size: 24px;" title="Edit" uk-tooltip></i></a>
 
             </div>
 
         </div>
 
-    </div>
-
-    <div id="reviews-modal-{{_id}}" uk-modal>
-        <div class="uk-modal-dialog uk-modal-body">
-            <h2 class="uk-modal-title">{{name}} Reviews</h2>
-            {{#if reviews }}
-                {{#each reviews }}
-                    <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-medium-top">
-                        <div class="uk-text-large">{{title}}</div>
-                        <div class="uk-text-medium">{{reviewedBy.firstName}} {{reviewedBy.lastName}}</div>
-                    </div>
-                    <div class="uk-flex uk-flex-between uk-flex-middle">
-                        <div class="uk-text-medium">Rating: {{rating}}/5</div>
-                        <div class="uk-text-small">{{date}}</div>
-                    </div>
-                    <div class="uk-margin">
-                        {{review}}
-                    </div>
-                {{/each}}
-            {{else}}
-                <div class="uk-text-medium uk-margin-top">No reviews yet..</div>
-            {{/if}}
-            <form action="add-review/{{_id}}" class="uk-form" method="POST">
-                <fieldset class="uk-fieldset uk-margin-large-top">
-                    <div legend="uk-legend uk-margin">Add Review</div>
-                    <div class="uk-margin">
-                        <label class="uk-form-label" for="form-stacked-text">Title:</label>
-                        <div class="uk-form-controls">
-                            <input class="uk-input" id="form-stacked-text" type="text" name="title">
+        <div id="reviews-modal-{{_id}}" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">{{name}} Reviews</h2>
+                {{#if reviews }}
+                    {{#each reviews }}
+                        <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-medium-top">
+                            <div class="uk-text-large">{{title}}</div>
+                            <div class="uk-text-medium">{{reviewedBy.firstName}} {{reviewedBy.lastName}}</div>
                         </div>
-                    </div>
-                    <div class="uk-margin">
-                        <label class="uk-form-label" for="form-stacked-text">Review:</label>
-                        <textarea class="uk-textarea" rows="5" name="review"></textarea>
-                    </div>
-                    <div class="uk-margin">
-                        <div class="uk-form-label uk-margin-small-bottom">Rating:</div>
-                        <div class="uk-grid uk-form-controls">
-                            <label><input class="uk-radio" type="radio" name="rating" value="1"> 1</label>
-                            <label><input class="uk-radio" type="radio" name="rating" value="2"> 2</label>
-                            <label><input class="uk-radio" type="radio" name="rating" value="3"> 3</label>
-                            <label><input class="uk-radio" type="radio" name="rating" value="4"> 4</label>
-                            <label><input class="uk-radio" type="radio" name="rating" value="5"> 5</label>
+                        <div class="uk-flex uk-flex-between uk-flex-middle">
+                            <div class="uk-text-medium">Rating: {{rating}}/5</div>
+                            <div class="uk-text-small">{{date}}</div>
                         </div>
-                    </div>
-                    </fieldset>
-                <button class="uk-button uk-button-secondary uk-button-large">Submit Review</button>
-            </form>
+                        <div class="uk-margin">
+                            {{review}}
+                        </div>
+                    {{/each}}
+                {{else}}
+                    <div class="uk-text-medium uk-margin-top">No reviews yet..</div>
+                {{/if}}
+                <form action="add-review/{{_id}}" class="uk-form" method="POST">
+                    <fieldset class="uk-fieldset uk-margin-large-top">
+                        <div legend="uk-legend uk-margin">Add Review</div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-stacked-text">Title:</label>
+                            <div class="uk-form-controls">
+                                <input class="uk-input" id="form-stacked-text" type="text" name="title">
+                            </div>
+                        </div>
+                        <div class="uk-margin">
+                            <label class="uk-form-label" for="form-stacked-text">Review:</label>
+                            <textarea class="uk-textarea" rows="5" name="review"></textarea>
+                        </div>
+                        <div class="uk-margin">
+                            <div class="uk-form-label uk-margin-small-bottom">Rating:</div>
+                            <div class="uk-grid uk-form-controls">
+                                <label><input class="uk-radio" type="radio" name="rating" value="1"> 1</label>
+                                <label><input class="uk-radio" type="radio" name="rating" value="2"> 2</label>
+                                <label><input class="uk-radio" type="radio" name="rating" value="3"> 3</label>
+                                <label><input class="uk-radio" type="radio" name="rating" value="4"> 4</label>
+                                <label><input class="uk-radio" type="radio" name="rating" value="5"> 5</label>
+                            </div>
+                        </div>
+                        </fieldset>
+                    <button class="uk-button uk-button-secondary uk-button-large">Submit Review</button>
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div id="delete-modal-{{_id}}" uk-modal>
-        <div class="uk-modal-dialog uk-modal-body">
-            <h2 class="uk-modal-title">Delete {{name}}</h2>
-            <p>Are you sure you want to delete this stadium?</p>
-            <p class="uk-text-center">
-                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
-                <a href="delete-stadium/{{_id}}"><button class="uk-button" style="background-color: red; color: white;"
-                        type="button">Delete</button></a>
-            </p>
+        <div id="delete-modal-{{_id}}" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body">
+                <h2 class="uk-modal-title">Delete {{name}}</h2>
+                <p>Are you sure you want to delete this stadium?</p>
+                <p class="uk-text-center">
+                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                    <a href="delete-stadium/{{_id}}"><button class="uk-button" style="background-color: red; color: white;"
+                            type="button">Delete</button></a>
+                </p>
+            </div>
         </div>
+        {{/each}}
     </div>
-
-    {{/each}}
-
-</div>
+{{/each}}
