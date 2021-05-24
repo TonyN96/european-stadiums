@@ -19,7 +19,7 @@
                 Capacity: {{capacity}} <br>
                 Built: {{built}} <br>
                 Club: {{club}} <br>
-                Rating: {{#if rating}}{{rating}}/5{{else}}None yet{{/if}}<br>
+                Rating: {{#if rating}}{{rating}}%{{#if (ratingIcon rating)}} <i class="fas fa-thumbs-up" style="color: green"></i> {{else}} <i class="fas fa-thumbs-down" style="color: red"></i> {{/if}}{{else}}None yet{{/if}}<br>
             </div>
 
             <div class="uk-width-expand uk-flex uk-flex-between uk-flex-bottom">
@@ -30,14 +30,7 @@
 
                     <div class="uk-inline" uk-toggle="target: #reviews-modal-{{_id}}"
                         style="cursor: pointer; vertical-align: baseline;"><i class="fas fa-file"
-                            style="color: rgba(230, 176, 28, 0.829); font-size: 24px;" title="Reviews" uk-tooltip></i></div>
-
-                    <div class="uk-inline" style="vertical-align: baseline;" uk-lightbox>
-                        <a href="https://www.google.com/maps/embed/v1/place?key={{../mapsKey}}&q={{coords.[0]}},{{coords.[1]}}&maptype=satellite"
-                            data-caption="{{name}}, {{city}}" data-type="iframe"><i class="fas fa-map-marker-alt"
-                                style="color: rgba(49, 216, 57, 0.829); font-size: 24px;" title="View on map"
-                                uk-tooltip></i></a>
-                    </div>
+                            style="color: rgba(32, 192, 72, 0.829); font-size: 24px;" title="Reviews" uk-tooltip></i></div>
 
                     <div class="uk-inline" uk-toggle="target: #delete-modal-{{_id}}"
                         style="cursor: pointer; vertical-align: baseline;"><i class="fas fa-times-circle"

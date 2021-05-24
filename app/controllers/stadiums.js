@@ -20,6 +20,9 @@ const Stadiums = {
         const stadiums = await Stadium.find().populate("addedBy").lean();
         // Get all users
         const users = await User.find().lean();
+        const userId = request.auth.credentials.id;
+        const user = await User.findById(userId);
+        const username = user.firstName + " " + user.lastName;
         // Categorising stadiums using utility function
         const categorisedStadiums = UtilityFunctions.categoriseStadiums(stadiums);
         // For loop for populating stadium reviews, formatting review dates and calculating ratings
@@ -35,8 +38,7 @@ const Stadiums = {
             stadiums[x].reviews[z].date = UtilityFunctions.dateFormatter(reviewDate);
           }
           if (totalRatings != 0) {
-            let newRating = totalRatings / stadiums[x].reviews.length;
-            stadiums[x].rating = Math.round(newRating * 100) / 100;
+            stadiums[x].rating = (totalRatings / stadiums[x].reviews.length) * 20;
           } else {
             stadiums[x].rating = null;
           }
@@ -44,6 +46,7 @@ const Stadiums = {
         // Rendering home page with the object containing required view data
         return h.view("home", {
           title: "European Stadiums | Home",
+          username: username,
           mapsKey: process.env.mapsKey,
           usersCount: users.length,
           stadiumsCount: stadiums.length,
@@ -58,8 +61,11 @@ const Stadiums = {
 
   // Method for displaying the add stadium view
   addStadiumView: {
-    handler: function (request, h) {
-      return h.view("add-stadium", { title: "European Stadiums | Add Stadium" });
+    handler: async function (request, h) {
+      const userId = request.auth.credentials.id;
+      const user = await User.findById(userId);
+      const username = user.firstName + " " + user.lastName;
+      return h.view("add-stadium", { title: "European Stadiums | Add Stadium", username: username });
     },
   },
 
@@ -155,10 +161,14 @@ const Stadiums = {
   editStadiumView: {
     handler: async function (request, h) {
       const stadiumId = request.params.id;
+      const userId = request.auth.credentials.id;
+      const user = await User.findById(userId);
+      const username = user.firstName + " " + user.lastName;
       // The relevant stadium is passed into the view
       const stadium = await Stadium.findById(stadiumId).lean();
       return h.view("edit-stadium", {
         title: "European Stadiums | Edit Stadium",
+        username: username,
         stadium: stadium,
       });
     },
