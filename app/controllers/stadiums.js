@@ -21,8 +21,11 @@ const Stadiums = {
         // Get all users
         const users = await User.find().lean();
         const userId = request.auth.credentials.id;
+        let username;
         const user = await User.findById(userId);
-        const username = user.firstName + " " + user.lastName;
+        if (user) {
+          username = user.firstName + " " + user.lastName;
+        }
         // Categorising stadiums using utility function
         const categorisedStadiums = UtilityFunctions.categoriseStadiums(stadiums);
         // For loop for populating stadium reviews, formatting review dates and calculating ratings

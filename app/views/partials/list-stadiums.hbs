@@ -47,9 +47,10 @@
         <div id="reviews-modal-{{_id}}" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
                 <h2 class="uk-modal-title">{{name}} Reviews</h2>
+                <hr>
                 {{#if reviews }}
                     {{#each reviews }}
-                        <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-medium-top">
+                        <div class="uk-flex uk-flex-between uk-flex-middle uk-margin-top">
                             <div class="uk-text-large">{{title}}</div>
                             <div class="uk-text-medium">{{reviewedBy.firstName}} {{reviewedBy.lastName}}</div>
                         </div>
@@ -60,13 +61,15 @@
                         <div class="uk-margin">
                             {{review}}
                         </div>
+                        <hr>
                     {{/each}}
                 {{else}}
-                    <div class="uk-text-medium uk-margin-top">No reviews yet..</div>
+                    <div class="uk-text-medium uk-margin">No reviews yet..</div>
+                    <hr>
                 {{/if}}
                 <form action="add-review/{{_id}}" class="uk-form" method="POST">
-                    <fieldset class="uk-fieldset uk-margin-large-top">
-                        <div legend="uk-legend uk-margin">Add Review</div>
+                    <fieldset class="uk-fieldset uk-margin-top">
+                        <div class="uk-text-large uk-margin">Add Review</div>
                         <div class="uk-margin">
                             <label class="uk-form-label" for="form-stacked-text">Title:</label>
                             <div class="uk-form-controls">
