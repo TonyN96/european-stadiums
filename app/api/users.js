@@ -30,15 +30,6 @@ const Users = {
     },
   },
 
-  findNameById: {
-    auth: false,
-    handler: async function (request, h) {
-      const user = await User.findById(request.params.id);
-      let userFullName = user.firstName + " " + user.lastName;
-      return userFullName;
-    },
-  },
-
   authenticate: {
     auth: false,
     handler: async function (request, h) {
@@ -49,6 +40,7 @@ const Users = {
         } else if (user.comparePassword(request.payload.password) == null) {
           return Boom.unauthorized("Invalid password");
         } else {
+          // Creating a JWT token associated with the user
           const token = utils.createToken(user);
           return h.response({ user: user, success: true, token: token }).code(201);
         }
@@ -68,6 +60,7 @@ const Users = {
           const message = "Email address is already registered";
           throw Boom.badData(message);
         }
+        // Hashing password using bcrypt
         const hash = await bcrypt.hash(payload.password, saltRounds);
         const newUser = new User({
           firstName: payload.firstName,
@@ -78,6 +71,7 @@ const Users = {
         });
         const savedUser = await newUser.save();
         if (savedUser) {
+          // Creating a JWT token associated with the user
           const token = utils.createToken(savedUser);
           return h.response({ user: savedUser, success: true, token: token }).code(201);
         }
@@ -94,6 +88,7 @@ const Users = {
       try {
         const userId = request.params.id;
         const data = request.payload;
+        // Hashing password using bcrypt
         const hash = await bcrypt.hash(data.password, saltRounds);
         const user = await User.findById(userId);
         user.firstName = data.firstName;
@@ -103,6 +98,7 @@ const Users = {
         user.admin = data.admin;
         const result = await user.save();
         if (result) {
+          // Creating a JWT token associated with the user
           const token = utils.createToken(user);
           return h.response({ user: user, success: true, token: token }).code(201);
         }

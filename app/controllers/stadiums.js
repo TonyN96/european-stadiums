@@ -21,6 +21,7 @@ const Stadiums = {
         // Get all users
         const users = await User.find().lean();
         const userId = request.auth.credentials.id;
+        // Variable used to display current user in nav bar
         let username;
         const user = await User.findById(userId);
         if (user) {
@@ -34,12 +35,15 @@ const Stadiums = {
             .populate("stadium")
             .populate("reviewedBy")
             .lean();
+          // Calculating total number of ratings for stadium
           let totalRatings = 0;
           for (let z = 0; z < stadiums[x].reviews.length; z++) {
             totalRatings += stadiums[x].reviews[z].rating;
             let reviewDate = new Date(stadiums[x].reviews[z].date);
+            // Formatting date using function from UtilityFunctions
             stadiums[x].reviews[z].date = UtilityFunctions.dateFormatter(reviewDate);
           }
+          // Converting rating to a percentage
           if (totalRatings != 0) {
             stadiums[x].rating = (totalRatings / stadiums[x].reviews.length) * 20;
           } else {
@@ -259,8 +263,10 @@ const Stadiums = {
         const userId = request.auth.credentials.id;
         const stadiumId = request.params.id;
         const data = request.payload;
+        // Sanitizing rating input and converting it to an integer
         let sanitizedRating = Sanitizer.sanitizeContent(data.rating);
         sanitizedRating = parseInt(sanitizedRating);
+        // Creating new review object with payload data
         const newReview = new Review({
           title: Sanitizer.sanitizeContent(data.title),
           review: Sanitizer.sanitizeContent(data.review),

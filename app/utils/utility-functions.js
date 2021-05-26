@@ -1,6 +1,7 @@
 "use strict";
 
 const utilityFunctions = {
+  // Method used to format dates to a more readable format
   dateFormatter: function (dateInput) {
     const output =
       ("0" + dateInput.getDate()).slice(-2) +
@@ -11,6 +12,7 @@ const utilityFunctions = {
     return output;
   },
 
+  // Method used to categorise stadiums by country
   categoriseStadiums: function (stadiums) {
     let countries = ["England", "France", "Germany", "Italy", "Spain"];
     let result = [];

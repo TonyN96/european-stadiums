@@ -1,12 +1,10 @@
 "use strict";
 
-const Stadium = require("../models/stadium");
 const Boom = require("@hapi/boom");
 const Review = require("../models/review");
 
 const Reviews = {
-
-  addReview: {
+  add: {
     auth: {
       strategy: "jwt",
     },
@@ -35,6 +33,16 @@ const Reviews = {
     handler: async function (request, h) {
       let stadiumId = request.params.id;
       let reviews = Review.find({ stadium: stadiumId }).populate("stadium").populate("reviewedBy").lean();
+      return reviews;
+    },
+  },
+
+  findAll: {
+    auth: {
+      strategy: "jwt",
+    },
+    handler: async function (request, h) {
+      let reviews = Review.find().populate("stadium").populate("reviewedBy").lean();
       return reviews;
     },
   },

@@ -46,14 +46,6 @@ suite("User API tests", function () {
     assert.equal(allUsers.length, users.length);
   });
 
-  test("Find name by id", async function() {
-    let response = await stadiumsService.createUser(newUser);
-    let returnedUser = response.user;
-    let name = await stadiumsService.findUserNameById(returnedUser._id);
-    assert.isDefined(name);
-    assert.equal(name, returnedUser.firstName + " " + returnedUser.lastName);
-  })
-
   test("Authenticate a user", async function () {
     let response = await stadiumsService.createUser(newUser);
     let returnedUser = response.user;
@@ -81,7 +73,7 @@ suite("User API tests", function () {
     assert(editedUser.firstName == users[0].firstName);
   });
 
-  test("Delete a user", async function () {
+  test("Delete one user", async function () {
     let response = await stadiumsService.createUser(newUser);
     let returnedUser = response.user;
     assert(returnedUser._id != null);

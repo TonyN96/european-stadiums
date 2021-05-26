@@ -51,16 +51,7 @@ suite("Stadium API tests", function () {
     assert.equal(allStadiums.length, stadiums.length);
   });
 
-  test("Find stadium by country", async function () {
-    let user = await stadiumsService.createUser(newUser);
-    newStadium.addedBy = user;
-    let stadium = await stadiumsService.addStadium(newStadium);
-    let country = stadium.country;
-    let stadiums = await stadiumsService.findStadiumByCountry(country);
-    assert.equal(stadium.country, stadiums[0].country);
-  });
-
-  test("Add a stadium", async function () {
+  test("Add one stadium", async function () {
     let user = await stadiumsService.createUser(newUser);
     newStadium.addedBy = user;
     let stadium = await stadiumsService.addStadium(newStadium);
@@ -98,22 +89,5 @@ suite("Stadium API tests", function () {
     await stadiumsService.deleteAllStadiums();
     const d2 = await stadiumsService.findAllStadiums();
     assert.equal(d2.length, 0);
-  });
-
-  test("Get stadium rating", async function() {
-    let user = await stadiumsService.createUser(newUser);
-    let stadium = await stadiumsService.addStadium(newStadium);
-    newReview.reviewedBy = user;
-    newReview.stadium = stadium;
-    let review = await stadiumsService.addReview(newReview);
-    assert.isDefined(review._id);
-    let rating = await stadiumsService.getStadiumRating(stadium._id);
-    assert.isNumber(rating);
-    assert.equal(rating, review.rating);
-  })
-
-  test("Get mapsKey", async function () {
-    let mapsKey = await stadiumsService.getMapsKey();
-    assert.isDefined(mapsKey);
   });
 });
